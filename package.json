@@ -1,0 +1,46 @@
+{
+  "name": "soulcred",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "contracts:clean": "cd contract-create && npm run clean",
+    "contracts:deploy": "cd contract-create && npm run deploy",
+    "contracts:deploy:registry": "cd contract-create && npm run deploy:registry",
+    "contracts:deploy:resume": "cd contract-create && npm run deploy:resume",
+    "contracts:compile": "cd contract-create && npm run compile",
+    "contracts:test": "cd contract-create && npm run test",
+    "contracts:addresses": "cd contract-create && npm run addresses"
+  },
+  "dependencies": {
+    "@civic/auth": "^0.5.4",
+    "@civic/auth-web3": "^0.5.7",
+    "@react-hookz/web": "^25.1.1",
+    "@tanstack/react-query": "^5.75.7",
+    "@wagmi/core": "^2.17.1",
+    "@web3-storage/upload-client": "^17.1.4",
+    "@web3-storage/w3up-client": "^17.2.0",
+    "date-fns": "^4.1.0",
+    "ethers": "^6.14.0",
+    "hardhat": "2.23.0",
+    "next": "15.3.1",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "viem": "^2.29.1",
+    "wagmi": "^2.15.2",
+    "zustand": "^5.0.4"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.6",
+    "@types/node": "^20.17.46",
+    "@types/react": "^19.1.3",
+    "@types/react-dom": "^19.1.3",
+    "eslint": "^9.26.0",
+    "eslint-config-next": "15.3.2",
+    "tailwindcss": "^4.1.6",
+    "typescript": "^5.8.3"
+  }
+}
