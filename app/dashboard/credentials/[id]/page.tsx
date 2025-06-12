@@ -126,12 +126,12 @@ function VerificationRequestModal({ isOpen, onClose, onSubmit, organizations, is
 
   return (
     <div className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4">
-      <div className="bg-gray-800 rounded-lg max-w-md w-full">
-        <div className="flex justify-between items-center p-4 border-b border-gray-700">
-          <h3 className="text-lg font-semibold text-white">Request Verification</h3>
+      <div className="bg-[#f0f2f4] rounded-lg max-w-md w-full">
+        <div className="flex justify-between items-center p-4 border-b border-[#e5e7eb]">
+          <h3 className="text-lg font-semibold text-[#111418]">Request Verification</h3>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-white"
+            className="text-[#637488] hover:text-[#111418]"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -145,11 +145,11 @@ function VerificationRequestModal({ isOpen, onClose, onSubmit, organizations, is
             </div>
           )}
           <div className="mb-4">
-            <label className="block text-gray-300 mb-2">Select Organization</label>
+            <label className="block text-[#637488] mb-2">Select Organization</label>
             <select
               value={selectedOrg || ''}
               onChange={(e) => setSelectedOrg(e.target.value)}
-              className="w-full bg-gray-700 border border-gray-600 rounded px-3 py-2 text-white"
+              className="w-full bg-[#f0f2f4] border border-[#e5e7eb] rounded px-3 py-2 text-[#111418]"
             >
               <option value="">Select an organization...</option>
               {organizations.map((org) => (
@@ -160,18 +160,18 @@ function VerificationRequestModal({ isOpen, onClose, onSubmit, organizations, is
             </select>
           </div>
           <div className="mb-4">
-            <label className="block text-gray-300 mb-2">Verification Details</label>
+            <label className="block text-[#637488] mb-2">Verification Details</label>
             <textarea
               value={details}
               onChange={(e) => setDetails(e.target.value)}
               placeholder="Enter details about your work experience..."
-              className="w-full bg-gray-700 border border-gray-600 rounded px-3 py-2 text-white h-32"
+              className="w-full bg-[#f0f2f4] border border-[#e5e7eb] rounded px-3 py-2 text-[#111418] h-32"
             />
           </div>
           <div className="flex justify-end gap-2">
             <button
               onClick={onClose}
-              className="px-4 py-2 text-gray-300 hover:text-white"
+              className="px-4 py-2 text-[#637488] hover:text-[#111418]"
             >
               Cancel
             </button>
@@ -179,8 +179,8 @@ function VerificationRequestModal({ isOpen, onClose, onSubmit, organizations, is
               onClick={() => onSubmit(selectedOrg, details)}
               disabled={!selectedOrg || isLoading}
               className={`px-4 py-2 rounded ${!selectedOrg || isLoading
-                  ? 'bg-gray-600 text-gray-300 cursor-not-allowed'
-                  : 'bg-blue-600 hover:bg-blue-700 text-white'
+                  ? 'bg-gray-300 text-[#637488] cursor-not-allowed'
+                  : 'bg-[#1978e5] hover:bg-[#1978e5] text-white'
                 }`}
             >
               {isLoading ? (
@@ -466,11 +466,11 @@ export default function ResumeViewPage({ params }: { params: Promise<{ id: strin
   if (loading) {
     return (
       <div className="max-w-4xl mx-auto p-6">
-        <div className="bg-gray-800 p-8 rounded-lg border border-gray-700 text-center">
+        <div className="bg-[#f0f2f4] p-8 rounded-lg border border-[#e5e7eb] text-center">
           <div className="flex justify-center my-8">
             <div className="inline-block animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-blue-500"></div>
           </div>
-          <p className="text-gray-300">Loading resume...</p>
+          <p className="text-[#637488]">Loading resume...</p>
         </div>
       </div>
     );
@@ -507,13 +507,13 @@ export default function ResumeViewPage({ params }: { params: Promise<{ id: strin
           </div>
           <div className="flex items-center space-x-4">
             <Link
-              href="/dashboard"
+              href="/dashboard/credentials"
               className="text-[#1978e5] hover:text-[#125bb5] text-sm flex items-center"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
               </svg>
-              Back to Dashboard
+              Back to Credentials
             </Link>
             <Link
               href={`/dashboard/credentials/edit/${id}`}

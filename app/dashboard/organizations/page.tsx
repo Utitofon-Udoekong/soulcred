@@ -175,7 +175,7 @@ export default function OrganizationPage() {
 
   if (!details || !details.exists) {
     return (
-      <div className="max-w-2xl mx-auto p-6">
+      <div className=" p-6">
         <h1 className="text-2xl font-bold text-[#111418] mb-6">Register Organization</h1>
         <div className="bg-white rounded-lg border border-[#e5e7eb] p-6">
           {error && (

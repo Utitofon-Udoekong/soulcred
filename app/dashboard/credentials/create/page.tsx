@@ -1099,7 +1099,7 @@ function CreateResumeFormContent() {
                   >
                     Entry {index + 1}
                     {entryForms.length > 1 && (
-                      <button
+                      <span
                         onClick={(e) => {
                           e.stopPropagation();
                           if (entryForms.length > 1) {
@@ -1109,7 +1109,7 @@ function CreateResumeFormContent() {
                         className="ml-2 text-gray-500 hover:text-red-400"
                       >
                         ×
-                      </button>
+                      </span>
                     )}
                   </button>
                 ))}
@@ -1466,36 +1466,36 @@ function CreateResumeFormContent() {
           </div>
         )}
 
-        <div className="bg-[#f0f2f4] rounded-lg border border-[#e5e7eb] overflow-hidden mb-6">
-          <div className="p-6 border-b border-gray-700">
-            <h2 className="text-xl font-semibold text-white">{resumeName}</h2>
-            <p className="text-gray-400 mt-1">{address}</p>
+        <div className="bg-white rounded-lg border border-[#f0f2f4] overflow-hidden mb-6">
+          <div className="p-6 border-b border-[#f0f2f4]">
+            <h2 className="text-xl font-semibold text-[#111418]">{resumeName}</h2>
+            <p className="text-[#637488] mt-1">{address}</p>
           </div>
 
           <div className="p-6">
             {/* Profile Information Summary */}
             <div className="mb-8">
-              <h3 className="text-lg font-semibold text-white pb-2 border-b border-gray-700 mb-4">
+              <h3 className="text-lg font-semibold text-[#111418] pb-2 border-b border-[#f0f2f4] mb-4">
                 Profile Information
               </h3>
 
               <div className="space-y-3">
                 <div className="flex flex-col md:flex-row">
                   <div className="md:w-1/4">
-                    <p className="text-gray-300 font-medium">Full Name</p>
+                    <p className="text-[#637488] font-medium">Full Name</p>
                   </div>
                   <div className="md:w-3/4">
-                    <p className="text-white">{profileData.name || 'Not provided'}</p>
+                    <p className="text-[#111418]">{profileData.name || 'Not provided'}</p>
                   </div>
                 </div>
 
                 {profileData.headline && (
                   <div className="flex flex-col md:flex-row">
                     <div className="md:w-1/4">
-                      <p className="text-gray-300 font-medium">Professional Headline</p>
+                      <p className="text-[#637488] font-medium">Professional Headline</p>
                     </div>
                     <div className="md:w-3/4">
-                      <p className="text-white">{profileData.headline}</p>
+                      <p className="text-[#111418]">{profileData.headline}</p>
                     </div>
                   </div>
                 )}
@@ -1503,10 +1503,10 @@ function CreateResumeFormContent() {
                 {profileData.location && (
                   <div className="flex flex-col md:flex-row">
                     <div className="md:w-1/4">
-                      <p className="text-gray-300 font-medium">Location</p>
+                      <p className="text-[#637488] font-medium">Location</p>
                     </div>
                     <div className="md:w-3/4">
-                      <p className="text-white">{profileData.location}</p>
+                      <p className="text-[#111418]">{profileData.location}</p>
                     </div>
                   </div>
                 )}
@@ -1514,10 +1514,10 @@ function CreateResumeFormContent() {
                 {profileData.contactEmail && (
                   <div className="flex flex-col md:flex-row">
                     <div className="md:w-1/4">
-                      <p className="text-gray-300 font-medium">Contact Email</p>
+                      <p className="text-[#637488] font-medium">Contact Email</p>
                     </div>
                     <div className="md:w-3/4">
-                      <p className="text-white">{profileData.contactEmail}</p>
+                      <p className="text-[#111418]">{profileData.contactEmail}</p>
                     </div>
                   </div>
                 )}
@@ -1526,27 +1526,27 @@ function CreateResumeFormContent() {
                 {(profileData.socialLinks?.linkedin || profileData.socialLinks?.github || profileData.socialLinks?.twitter || profileData.socialLinks?.website) && (
                   <div className="flex flex-col md:flex-row">
                     <div className="md:w-1/4">
-                      <p className="text-gray-300 font-medium">Social Links</p>
+                      <p className="text-[#637488] font-medium">Social Links</p>
                     </div>
                     <div className="md:w-3/4">
                       <div className="flex flex-wrap gap-2">
                         {profileData.socialLinks?.linkedin && (
-                          <a href={profileData.socialLinks.linkedin} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300">
+                          <a href={profileData.socialLinks.linkedin} target="_blank" rel="noopener noreferrer" className="text-[#1978e5] hover:text-[#125bb5]">
                             LinkedIn
                           </a>
                         )}
                         {profileData.socialLinks?.github && (
-                          <a href={profileData.socialLinks.github} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300">
+                          <a href={profileData.socialLinks.github} target="_blank" rel="noopener noreferrer" className="text-[#1978e5] hover:text-[#125bb5]">
                             GitHub
                           </a>
                         )}
                         {profileData.socialLinks?.twitter && (
-                          <a href={profileData.socialLinks.twitter} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300">
+                          <a href={profileData.socialLinks.twitter} target="_blank" rel="noopener noreferrer" className="text-[#1978e5] hover:text-[#125bb5]">
                             Twitter
                           </a>
                         )}
                         {profileData.socialLinks?.website && (
-                          <a href={profileData.socialLinks.website} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300">
+                          <a href={profileData.socialLinks.website} target="_blank" rel="noopener noreferrer" className="text-[#1978e5] hover:text-[#125bb5]">
                             Website
                           </a>
                         )}
@@ -1559,7 +1559,7 @@ function CreateResumeFormContent() {
                 {profileData.skills && profileData.skills.length > 0 && (
                   <div className="flex flex-col md:flex-row">
                     <div className="md:w-1/4">
-                      <p className="text-gray-300 font-medium">Skills</p>
+                      <p className="text-[#637488] font-medium">Skills</p>
                     </div>
                     <div className="md:w-3/4">
                       <div className="flex flex-wrap gap-2">
@@ -1577,7 +1577,7 @@ function CreateResumeFormContent() {
                 {profileData.languages && profileData.languages.length > 0 && (
                   <div className="flex flex-col md:flex-row">
                     <div className="md:w-1/4">
-                      <p className="text-gray-300 font-medium">Languages</p>
+                      <p className="text-[#637488] font-medium">Languages</p>
                     </div>
                     <div className="md:w-3/4">
                       <div className="flex flex-wrap gap-2">
@@ -1591,14 +1591,13 @@ function CreateResumeFormContent() {
                   </div>
                 )}
 
-
                 {profileData.bio && (
                   <div className="flex flex-col md:flex-row mt-4">
                     <div className="md:w-1/4">
-                      <p className="text-gray-300 font-medium">Professional Bio</p>
+                      <p className="text-[#637488] font-medium">Professional Bio</p>
                     </div>
                     <div className="md:w-3/4">
-                      <p className="text-white whitespace-pre-line">{profileData.bio}</p>
+                      <p className="text-[#111418] whitespace-pre-line">{profileData.bio}</p>
                     </div>
                   </div>
                 )}
@@ -1608,7 +1607,7 @@ function CreateResumeFormContent() {
             {Object.keys(entriesByType).length > 0 ? (
               Object.entries(entriesByType).map(([type, entries]) => (
                 <div key={type} className="mb-8 last:mb-0">
-                  <h3 className="text-lg font-semibold text-white pb-2 border-b border-gray-700 mb-4">
+                  <h3 className="text-lg font-semibold text-[#111418] pb-2 border-b border-[#f0f2f4] mb-4">
                     {getEntryTypeDisplayName(type)}
                   </h3>
 
@@ -1616,15 +1615,15 @@ function CreateResumeFormContent() {
                     {entries.map((entry: DraftResumeEntry, index: number) => (
                       <div key={index} className="flex flex-col md:flex-row gap-4">
                         <div className="md:w-1/4">
-                          <p className="text-gray-300 font-medium">
+                          <p className="text-[#637488] font-medium">
                             {formatDate(entry.startDate)} - {formatDate(entry.endDate)}
                           </p>
                         </div>
 
                         <div className="md:w-3/4">
-                          <h4 className="text-lg font-medium text-white">{entry.title}</h4>
-                          <p className="text-gray-300">{entry.organization || entry.company}</p>
-                          <p className="mt-2 text-gray-400 whitespace-pre-line">{entry.description}</p>
+                          <h4 className="text-lg font-medium text-[#111418]">{entry.title}</h4>
+                          <p className="text-[#637488]">{entry.organization || entry.company}</p>
+                          <p className="mt-2 text-[#637488] whitespace-pre-line">{entry.description}</p>
 
                           {/* Attachments section */}
                           {entry.attachments && entry.attachments.length > 0 && (

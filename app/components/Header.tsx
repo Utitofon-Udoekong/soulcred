@@ -29,7 +29,7 @@ export default function Header() {
           </div>
           <div className="flex gap-2 items-center min-w-[120px] ml-6">
             {!isConnected ? (
-              <UserButton className="rounded-xl h-10 px-4 bg-[#1978e5] text-white text-sm font-bold login-button" />
+              <UserButton className="rounded-xl px-4 bg-[#1978e5] !text-white hover:!text-black text-sm font-bold login-button" />
             ) : (
               <div className="flex items-center bg-[#f0f2f4] rounded-xl px-4 h-10 text-[#111418] text-sm font-bold">
                 <span className="w-2 h-2 bg-green-400 rounded-full mr-2"></span>
