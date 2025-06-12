@@ -1,9 +1,8 @@
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import Logo from './Logo';
-import { useUser } from "@civic/auth-web3/react";
 import { useWeb3 } from '../providers/Web3Provider';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 
 const navItems = [
     {
@@ -62,6 +61,8 @@ export default function DashboardSidebar() {
     const { logout, walletConnected, userAuthenticated } = useWeb3();
     const router = useRouter();
     const [isLoggingOut, setIsLoggingOut] = useState(false);
+    const pathname = usePathname();
+
     const handleLogout = async () => {
         setIsLoggingOut(true);
         try {
@@ -75,7 +76,15 @@ export default function DashboardSidebar() {
             setIsLoggingOut(false);
         }
     }
-    const pathname = usePathname();
+
+    const handleAdminRoute = async () => {
+        const success = await logout();
+        if (success) {
+            router.replace('/admin');
+        }
+
+    }
+
     return (
         <aside className="fixed top-0 left-0 h-screen w-72 bg-white border-r border-[#f0f2f4] flex flex-col justify-between py-4 px-2 z-30">
             <div>
@@ -101,6 +110,19 @@ export default function DashboardSidebar() {
                             </Link>
                         );
                     })}
+                    {/* Admin link, only for contract owner */}
+
+                    <button
+                        onClick={handleAdminRoute}
+                        className={`flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50 ${pathname === "/admin" ? "bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-gray-50" : ""
+                            }`}
+                    >
+                        <span className="text-[#1978e5]">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="#1978e5" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" /></svg>
+                        </span>
+                        <span className="text-[#1978e5] text-sm font-bold leading-normal">Admin</span>
+
+                    </button>
                 </nav>
             </div>
             <div className="px-4 mt-8">

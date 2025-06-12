@@ -11,6 +11,13 @@ import { useOrganizations } from '@/app/hooks/useOrganizations';
 // Contract owner address
 const OWNER_ADDRESS = process.env.contractOwnerAddress?.toLowerCase();
 
+const BG_MAIN = "bg-[#f0f2f4]";
+const TEXT_MAIN = "text-[#111418]";
+const TEXT_SECONDARY = "text-[#637488]";
+const TEXT_PRIMARY = "text-[#1978e5]";
+const BORDER_MAIN = "border-[#f0f2f4]";
+const BG_WHITE = "bg-white";
+
 const AdminNavbar = () => {
   const { signOut } = useUser();
   const { address } = useAccount();
@@ -175,13 +182,13 @@ export default function AdminPage() {
 
   if (!isConnected) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+      <div className={`min-h-screen ${BG_MAIN}`}>
         <AdminNavbar />
-        <div className="max-w-md mx-auto mt-20 p-8 bg-gray-800/50 backdrop-blur-sm rounded-xl border border-gray-700/50 shadow-xl">
-          <h1 className="text-3xl font-bold text-white mb-6 text-center">Admin Login</h1>
+        <div className={`max-w-md mx-auto mt-20 p-8 ${BG_WHITE} rounded-xl border ${BORDER_MAIN} shadow-xl`}>
+          <h1 className={`text-3xl font-bold ${TEXT_MAIN} mb-6 text-center`}>Admin Login</h1>
           <button
             onClick={() => connect({ connector: metaMask() })}
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg text-lg font-medium transition-all duration-200 flex items-center justify-center space-x-2"
+            className={`w-full ${BG_MAIN} hover:bg-[#e6e8ea] ${TEXT_PRIMARY} px-6 py-3 rounded-lg text-lg font-medium transition-all duration-200 flex items-center justify-center space-x-2 border ${BORDER_MAIN}`}
             disabled={isPending}
           >
             {isPending ? (
@@ -205,14 +212,14 @@ export default function AdminPage() {
 
   if (!isOwner) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+      <div className={`min-h-screen ${BG_MAIN}`}>
         <AdminNavbar />
-        <div className="max-w-md mx-auto mt-20 p-8 bg-gray-800/50 backdrop-blur-sm rounded-xl border border-gray-700/50 shadow-xl text-center">
-          <h1 className="text-2xl font-bold text-white mb-4">Admin Access Required</h1>
-          <p className="text-gray-300 mb-6">You must be connected as the contract owner to access this page.</p>
+        <div className={`max-w-md mx-auto mt-20 p-8 ${BG_WHITE} rounded-xl border ${BORDER_MAIN} shadow-xl text-center`}>
+          <h1 className={`text-2xl font-bold ${TEXT_MAIN} mb-4`}>Admin Access Required</h1>
+          <p className={`${TEXT_SECONDARY} mb-6`}>You must be connected as the contract owner to access this page.</p>
           <button
             onClick={() => disconnect()}
-            className="bg-gray-700 hover:bg-gray-600 text-white px-6 py-3 rounded-lg transition-all duration-200"
+            className={`bg-[#e6e8ea] hover:bg-[#f0f2f4] ${TEXT_MAIN} px-6 py-3 rounded-lg transition-all duration-200`}
           >
             Disconnect
           </button>
@@ -222,21 +229,21 @@ export default function AdminPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+    <div className={`min-h-screen ${BG_MAIN}`}>
       <AdminNavbar />
       <main className="mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <div className="max-w-7xl mx-auto">
           <div className="flex justify-between items-center mb-6">
-            <h1 className="text-2xl font-bold text-white">Organization Management</h1>
+            <h1 className={`text-2xl font-bold ${TEXT_MAIN}`}>Organization Management</h1>
             <div className="relative">
               <input
                 type="text"
                 placeholder="Search organizations..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="bg-gray-800/50 border border-gray-700/50 rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className={`${BG_WHITE} border ${BORDER_MAIN} rounded-lg px-4 py-2 ${TEXT_MAIN} placeholder-[#637488] focus:outline-none focus:ring-2 focus:ring-[#1978e5] focus:border-transparent`}
               />
-              <svg className="w-5 h-5 text-gray-400 absolute right-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 text-[#637488] absolute right-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
             </div>
@@ -244,18 +251,18 @@ export default function AdminPage() {
 
           {loadingOrgs ? (
             <div className="flex items-center justify-center h-64">
-              <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+              <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#1978e5]"></div>
             </div>
           ) : error ? (
             (() => {
               const parsed = parseUserFriendlyError(error);
               return (
-                <div className="bg-red-900/20 border border-red-500/30 rounded-lg p-4 text-red-300">
+                <div className="bg-red-100 border border-red-300 rounded-lg p-4 text-red-700">
                   <div className="flex items-center justify-between">
                     <span>{parsed.message}</span>
                     {parsed.details && (
                       <button
-                        className="ml-4 text-xs underline text-red-200 hover:text-red-100"
+                        className="ml-4 text-xs underline text-red-500 hover:text-red-700"
                         onClick={() => setShowErrorDetails((v) => !v)}
                       >
                         {showErrorDetails ? "Hide Details" : "Show Details"}
@@ -263,7 +270,7 @@ export default function AdminPage() {
                     )}
                   </div>
                   {showErrorDetails && parsed.details && (
-                    <pre className="mt-2 text-xs text-red-200 whitespace-pre-wrap break-all max-h-64 overflow-auto bg-red-950/40 p-2 rounded">
+                    <pre className="mt-2 text-xs text-red-500 whitespace-pre-wrap break-all max-h-64 overflow-auto bg-red-50 p-2 rounded">
                       {parsed.details}
                     </pre>
                   )}
@@ -271,35 +278,35 @@ export default function AdminPage() {
               );
             })()
           ) : (
-            <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl border border-gray-700/50 shadow-xl overflow-hidden">
-              <div className="grid grid-cols-12 gap-4 p-4 bg-gray-700/50 text-sm font-medium text-gray-300">
+            <div className={`${BG_WHITE} rounded-xl border ${BORDER_MAIN} shadow-xl overflow-hidden`}>
+              <div className="grid grid-cols-12 gap-4 p-4 bg-[#f0f2f4] text-sm font-medium ${TEXT_SECONDARY}">
                 <div className="col-span-3">Name</div>
                 <div className="col-span-3">Email</div>
                 <div className="col-span-3">Website</div>
                 <div className="col-span-2">Status</div>
                 <div className="col-span-1">Actions</div>
               </div>
-              <div className="divide-y divide-gray-700/50">
+              <div className="divide-y divide-[#f0f2f4]">
                 {filteredOrgs.map((org) => (
-                  <div key={org.address} className="grid grid-cols-12 gap-4 p-4 hover:bg-gray-700/30 transition-colors duration-200">
+                  <div key={org.address} className="grid grid-cols-12 gap-4 p-4 hover:bg-[#e6e8ea] transition-colors duration-200">
                     <div className="col-span-3">
-                      <div className="font-medium text-white">{org.name}</div>
-                      <div className="text-xs text-gray-400 font-mono">{org.address}</div>
+                      <div className={`font-medium ${TEXT_MAIN}`}>{org.name}</div>
+                      <div className="text-xs ${TEXT_SECONDARY} font-mono">{org.address}</div>
                     </div>
-                    <div className="col-span-3 text-sm text-gray-300">{org.email}</div>
-                    <div className="col-span-3 text-sm text-gray-300">
+                    <div className="col-span-3 text-sm ${TEXT_SECONDARY}">{org.email}</div>
+                    <div className="col-span-3 text-sm ${TEXT_SECONDARY}">
                       <a href={org.website} target="_blank" rel="noopener noreferrer" 
-                         className="text-blue-400 hover:text-blue-300 transition-colors duration-200">
+                         className="${TEXT_PRIMARY} hover:text-[#125bb5] transition-colors duration-200">
                         {org.website}
                       </a>
                     </div>
                     <div className="col-span-2">
                       {org.isVerified ? (
-                        <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-green-900/50 text-green-300 border border-green-500/30">
+                        <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700 border border-green-300">
                           Verified
                         </span>
                       ) : (
-                        <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-yellow-900/50 text-yellow-300 border border-yellow-500/30">
+                        <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-700 border border-yellow-300">
                           Pending
                         </span>
                       )}
@@ -309,7 +316,7 @@ export default function AdminPage() {
                         <button
                           onClick={() => handleVerify(org.address)}
                           disabled={txLoading === org.address}
-                          className="p-1.5 rounded-lg bg-green-900/20 text-green-400 hover:bg-green-900/30 hover:text-green-300 disabled:opacity-50 transition-all duration-200"
+                          className="p-1.5 rounded-lg bg-green-100 text-green-700 hover:bg-green-200 hover:text-green-800 disabled:opacity-50 transition-all duration-200"
                           title="Verify"
                         >
                           {txLoading === org.address ? (
@@ -325,7 +332,7 @@ export default function AdminPage() {
                         <button
                           onClick={() => handleRevoke(org.address)}
                           disabled={txLoading === org.address}
-                          className="p-1.5 rounded-lg bg-yellow-900/20 text-yellow-400 hover:bg-yellow-900/30 hover:text-yellow-300 disabled:opacity-50 transition-all duration-200"
+                          className="p-1.5 rounded-lg bg-yellow-100 text-yellow-700 hover:bg-yellow-200 hover:text-yellow-800 disabled:opacity-50 transition-all duration-200"
                           title="Revoke"
                         >
                           {txLoading === org.address ? (
@@ -340,7 +347,7 @@ export default function AdminPage() {
                       <button
                         onClick={() => handleRemove(org.address)}
                         disabled={txLoading === org.address}
-                        className="p-1.5 rounded-lg bg-red-900/20 text-red-400 hover:bg-red-900/30 hover:text-red-300 disabled:opacity-50 transition-all duration-200"
+                        className="p-1.5 rounded-lg bg-red-100 text-red-700 hover:bg-red-200 hover:text-red-800 disabled:opacity-50 transition-all duration-200"
                         title="Remove"
                       >
                         {txLoading === org.address ? (
@@ -352,7 +359,7 @@ export default function AdminPage() {
                         )}
                       </button>
                       {txError && txLoading === org.address && (
-                        <div className="absolute mt-12 text-red-400 text-xs bg-red-900/20 p-2 rounded-lg border border-red-500/30">
+                        <div className="absolute mt-12 text-red-700 text-xs bg-red-100 p-2 rounded-lg border border-red-300">
                           {txError}
                         </div>
                       )}
