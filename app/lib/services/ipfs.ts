@@ -9,6 +9,7 @@ export class IPFSService {
   private web3StorageClient: Client | null = null;
   private initialized = false;
   private spaceProvisioned = false;
+  private account: any;
 
   private constructor() { }
 
@@ -23,37 +24,86 @@ export class IPFSService {
   }
 
   /**
-   * Initialize the Web3.Storage client and provision a space
-   * This must be called before using w3up-client methods
+   * Initialize the Web3.Storage client, login, and provision/set a space.
+   * If email and spaceName are provided, will login and create/set space if needed.
+   * If spaceDid is provided, will set the existing space as current.
    */
-  public async initialize(): Promise<void> {
-    if (!this.web3StorageClient && !this.initialized) {
-      try {
-        this.web3StorageClient = await create();
-        this.initialized = true;
-      } catch (error) {
-        console.error('Failed to initialize Web3.Storage client:', error);
-        this.initialized = false;
-        return;
-      }
+  public async initialize({ email, spaceName, spaceDid }: { email?: string, spaceName?: string, spaceDid?: string } = {}): Promise<void> {
+    if (!this.web3StorageClient) {
+      this.web3StorageClient = await create();
     }
 
-    // Skip space provisioning if we've already done it or if we don't have an email
-    if (this.spaceProvisioned || !this.web3StorageClient) {
+    // If a space DID is provided, just set it as current
+    if (spaceDid) {
+      await this.initializeWithExistingSpace(spaceDid);
       return;
     }
 
+    // If not logged in and email is provided, login
+    if (!this.account && email) {
+      await this.login(email);
+    }
+
+    // If not provisioned and we have an account and spaceName, create and set space
+    if (!this.spaceProvisioned && this.account && spaceName) {
+      await this.createAndSetSpace(spaceName);
+    }
+  }
+
+  /**
+   * Login the agent with an email address (sends confirmation email)
+   */
+  public async login(email: string): Promise<void> {
+    if (!this.web3StorageClient) {
+      this.web3StorageClient = await create();
+    }
     try {
-      await this.web3StorageClient.setCurrentSpace(process.env.ipfsStorageKey as `did:${string}:${string}`);
+      this.account = await this.web3StorageClient.login(email as `${string}@${string}`);
+      // Wait for payment plan selection (poll every 1s, timeout 15min)
+      await this.account.plan.wait();
+    } catch (error) {
+      console.error('Web3.Storage login failed:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Create and provision a new space, and set it as current
+   */
+  public async createAndSetSpace(spaceName: string): Promise<void> {
+    if (!this.web3StorageClient || !this.account) {
+      throw new Error('Web3.Storage client or account not initialized. Call login() first.');
+    }
+    try {
+      const space = await this.web3StorageClient.createSpace(spaceName, { account: this.account });
+      await this.web3StorageClient.setCurrentSpace(space.did());
       this.spaceProvisioned = true;
     } catch (error) {
-      console.error('Error provisioning Web3.Storage space:', error);
+      console.error('Error creating/provisioning Web3.Storage space:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Initialize the Web3.Storage client and set current space if already provisioned
+   * (Call login and createAndSetSpace separately for new users)
+   */
+  public async initializeWithExistingSpace(spaceDid: string): Promise<void> {
+    if (!this.web3StorageClient) {
+      this.web3StorageClient = await create();
+    }
+    try {
+      await this.web3StorageClient.setCurrentSpace(spaceDid as `did:${string}:${string}`);
+      this.spaceProvisioned = true;
+    } catch (error) {
+      console.error('Error setting current Web3.Storage space:', error);
+      throw error;
     }
   }
 
   /**
    * Upload a file to IPFS using web3StorageClient
-   * @param file - The file to upload
+   * @param file - The file to upload`
    * @returns The IPFS URI for the uploaded file
    */
   public async uploadFile(file: File): Promise<string> {

@@ -6,6 +6,8 @@ const nextConfig: NextConfig = {
     contractOwnerAddress: process.env.CONTRACT_OWNER_ADDRESS,
     sepoliaAlchemyApiKey: process.env.SEPOLIA_ALCHEMY_API_KEY,
     ipfsStorageKey: process.env.IPFS_STORAGE_KEY,
+    ipfsStorageEmail: process.env.IPFS_STORAGE_EMAIL,
+    ipfsStorageSpaceName: process.env.IPFS_STORAGE_SPACE_NAME,
   },
   images: {
     remotePatterns: [

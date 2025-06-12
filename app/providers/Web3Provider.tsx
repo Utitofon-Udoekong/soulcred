@@ -65,6 +65,7 @@ interface Web3ContextType {
   getUserVerificationRequests: () => Promise<VerificationRequest[]>;
   approveVerificationRequest: (requestId: number, verificationDetails: string) => Promise<string>;
   rejectVerificationRequest: (requestId: number, reason: string) => Promise<string>;
+  burnResume: (tokenId: string | number | bigint) => Promise<void>;
 }
 
 const Web3Context = createContext<Web3ContextType | null>(null);
@@ -110,7 +111,11 @@ function Web3ProviderInner({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const initIPFS = async () => {
       try {
-        await ipfsService.initialize();
+        await ipfsService.initialize({
+          email: process.env.ipfsStorageEmail,
+          spaceName: process.env.ipfsStorageSpaceName,
+          spaceDid: process.env.ipfsStorageKey,
+        });
       } catch (error) {
         console.error('Failed to initialize IPFS service:', error);
       }
@@ -734,6 +739,26 @@ function Web3ProviderInner({ children }: { children: React.ReactNode }) {
     }
   });
 
+  // Burn a resume NFT by tokenId
+  const burnResume = async (tokenId: string | number | bigint): Promise<void> => {
+    if (!address) throw new Error('Wallet not connected');
+    try {
+      setIsLoading(true);
+      const tx = await writeContract(wagmiConfig, {
+        address: contractAddresses.resumeNFT as `0x${string}`,
+        abi: ResumeNFT__factory.abi,
+        functionName: 'burnResume',
+        args: [BigInt(tokenId)],
+      });
+      await waitForTransactionReceipt(wagmiConfig, { hash: tx });
+      // Optionally, refresh resumes list here
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+      throw error;
+    }
+  };
+
   // Create context value
   const contextValue: Web3ContextType = {
     userAuthenticated: !!userContext.user,
@@ -763,6 +788,7 @@ function Web3ProviderInner({ children }: { children: React.ReactNode }) {
     getUserVerificationRequests,
     approveVerificationRequest,
     rejectVerificationRequest,
+    burnResume,
   };
   return (
     <Web3Context.Provider value={contextValue}>

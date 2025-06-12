@@ -663,7 +663,7 @@ function CreateResumeFormContent() {
       }
       setSuccessMessage('Resume saved as draft successfully!');
       setTimeout(() => {
-        router.push('/dashboard/credentials');
+        // router.push('/dashboard/credentials');
       }, 1500);
     } catch (error) {
       console.error("Error saving resume:", error);
