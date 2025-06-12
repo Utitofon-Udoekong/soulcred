@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { parseError } from '@/app/lib/parseError';
 import { useOrganizations } from '@/app/hooks/useOrganizations';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 // Modal component for attachments
 function AttachmentModal({ isOpen, onClose, attachment }: { isOpen: boolean; onClose: () => void; attachment: string }) {
@@ -40,12 +41,12 @@ function AttachmentModal({ isOpen, onClose, attachment }: { isOpen: boolean; onC
 
   return (
     <div className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4">
-      <div className="bg-gray-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-hidden">
-        <div className="flex justify-between items-center p-4 border-b border-gray-700">
-          <h3 className="text-lg font-semibold text-white">Attachment Preview</h3>
+      <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-hidden">
+        <div className="flex justify-between items-center p-4 border-b border-[#dce0e5]">
+          <h3 className="text-lg font-semibold text-[#111418]">Attachment Preview</h3>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-white"
+            className="text-[#637488] hover:text-[#111418]"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -341,6 +342,7 @@ export default function ResumeViewPage({ params }: { params: Promise<{ id: strin
   const [showVerificationModal, setShowVerificationModal] = useState(false);
   const [selectedEntryId, setSelectedEntryId] = useState<string | null>(null);
   const [verificationLoading, setVerificationLoading] = useState(false);
+  const router = useRouter();
 
   // Use the new hook for organizations
   const { data: organizations = []} = useOrganizations();
@@ -464,6 +466,10 @@ export default function ResumeViewPage({ params }: { params: Promise<{ id: strin
     );
   };
 
+  const handleCancel = () => {
+    router.push(`/dashboard/credentials/${id}`);
+  };
+
   if (loading) {
     return (
       <div className="max-w-4xl mx-auto p-6">
@@ -480,8 +486,9 @@ export default function ResumeViewPage({ params }: { params: Promise<{ id: strin
   if (error) {
     return (
       <div className="max-w-4xl mx-auto p-6">
-        <div className="bg-red-900/50 border border-red-700 p-4 rounded-md text-red-200">
-          <p>{error}</p>
+        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+          <strong className="font-bold">Error!</strong>
+          <span className="block sm:inline">{error}</span>
         </div>
       </div>
     );

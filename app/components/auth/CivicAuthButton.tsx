@@ -8,16 +8,16 @@ import { userHasWallet } from "@civic/auth-web3";
 import { useWeb3 } from "@/app/providers/Web3Provider";
 
 export function CivicAuthButton() {
-  const { user } = useUser();
-  const { address: wagmiAddress } = useWeb3();
+  const { user,isLoading } = useUser();
+  const { address: wagmiAddress,isConnectingWallet } = useWeb3();
   const userContext = useUser();
   const address = userHasWallet(userContext) ? userContext.ethereum.address : wagmiAddress;
-  console.log(user && address)
+  console.log(user && address, isLoading, isConnectingWallet)
   // Otherwise, show the single action button
   return (
     <>
       {
-        user && address ?
+        address && user ?
           (<div className="flex flex-col md:flex-row max-w-md gap-2 w-full mt-4">
             <Link
               href="/dashboard/organizations"

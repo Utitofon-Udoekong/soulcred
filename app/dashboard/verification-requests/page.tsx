@@ -1,10 +1,22 @@
 "use client";
 
+import { useState } from "react";
 import { UserButton } from "@civic/auth-web3/react";
 import { useWeb3 } from "@/app/providers/Web3Provider";
 import { useVerificationRequests } from '@/app/hooks/useVerificationRequests';
 
-export default function VerificationRequestsPage() {
+const statusPill = (status: string) => {
+  let color = "bg-[#f0f2f4] text-[#111418]";
+  if (status === "Completed") color = "bg-green-100 text-green-700";
+  if (status === "Pending") color = "bg-[#f0f2f4] text-[#111418]";
+  return (
+    <span className={`flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-8 px-4 text-sm font-medium leading-normal w-full ${color}`}>
+      <span className="truncate">{status}</span>
+    </span>
+  );
+};
+
+export default function RequestsPage() {
   const { 
     userAuthenticated, 
     walletConnected, 
@@ -13,6 +25,17 @@ export default function VerificationRequestsPage() {
   
   // Use the new hook for verification requests
   const { data: verificationRequests = [], isLoading: loading, error } = useVerificationRequests();
+
+  const [tab, setTab] = useState("All");
+  // Filter real requests by status
+  const filteredRequests =
+    tab === "All"
+      ? verificationRequests
+      : verificationRequests.filter((r) =>
+          tab === "Pending"
+            ? r.status === "pending"
+            : (r.status === "approved" || r.status === "rejected")
+        );
 
   const getStatusBadge = (status: string) => {
     switch (status) {
@@ -105,94 +128,67 @@ export default function VerificationRequestsPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-8">Verification Requests</h1>
-      
-      {verificationRequests.length === 0 ? (
-        <div className="bg-gray-800 p-8 rounded-lg shadow-sm text-center">
-          <h2 className="text-xl font-medium mb-4">No Verification Requests</h2>
-          <p className="text-gray-400 text-center py-4">You haven&apos;t requested verification for any of your resume entries yet.</p>
-          <a 
-            href="/dashboard"
-            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium inline-block"
+    <div className="max-w-[960px] mx-auto w-full flex flex-col min-h-screen">
+      <div className="flex flex-col gap-2 px-4 pt-4">
+        <h1 className="text-[#111418] text-3xl font-bold leading-tight">Requests</h1>
+        <p className="text-[#637488] text-base font-normal leading-normal">Manage and track all verification requests</p>
+      </div>
+      {/* Tabs */}
+      <div className="flex border-b border-[#dce0e5] px-4 gap-8 mt-6">
+        {["All", "Pending", "Completed"].map((t) => (
+          <button
+            key={t}
+            className={`flex flex-col items-center justify-center border-b-[3px] pb-[13px] pt-4 text-sm font-bold tracking-[0.015em] ${tab === t ? 'border-b-[#111418] text-[#111418]' : 'border-b-transparent text-[#637488]'}`}
+            onClick={() => setTab(t)}
           >
-            Go to Resume
-          </a>
-        </div>
-      ) : (
-        <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-700">
-              <thead className="bg-gray-900">
+            {t}
+          </button>
+        ))}
+      </div>
+      {/* Table */}
+      <div className="px-4 py-6 flex-1">
+        <div className="overflow-x-auto rounded-xl border border-[#dce0e5] bg-white">
+          <table className="min-w-full">
+            <thead>
+              <tr>
+                <th className="px-4 py-3 text-left text-[#111418] w-[400px] text-sm font-medium leading-normal">Request ID</th>
+                <th className="px-4 py-3 text-left text-[#111418] w-[400px] text-sm font-medium leading-normal">Credential</th>
+                <th className="px-4 py-3 text-left text-[#111418] w-[400px] text-sm font-medium leading-normal">Requester</th>
+                <th className="px-4 py-3 text-left text-[#111418] w-60 text-sm font-medium leading-normal">Status</th>
+                <th className="px-4 py-3 text-left text-[#637488] w-60 text-sm font-medium leading-normal">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredRequests.length === 0 ? (
                 <tr>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
-                    Entry
-                  </th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
-                    Organization
-                  </th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
-                    Requested Date
-                  </th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
-                    Status
-                  </th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
-                    Actions
-                  </th>
+                  <td colSpan={5} className="text-center py-8 text-[#637488]">No requests found.</td>
                 </tr>
-              </thead>
-              <tbody className="bg-gray-800 divide-y divide-gray-700">
-                {verificationRequests.map((request) => {
-                  return (
-                    <tr key={request.id}>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm font-medium text-gray-100">{request.entryId}</div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm text-gray-100">{request.verificationDetails}</div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm text-gray-300">
-                          {new Date(request.timestamp * 1000).toLocaleDateString()}
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        {getStatusBadge(request.status)}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                        {/* {request.status === 'pending' && (
-                          <button
-                            onClick={() => handleCancelRequest(request.id)}
-                            className="text-red-400 hover:text-red-600"
-                          >
-                            Cancel
-                          </button>
-                        )} */}
-                        {request.status === 'approved' && (
-                          <span className="text-green-400">
-                            Verified on {new Date(request.timestamp * 1000).toLocaleDateString()}
-                          </span>
-                        )}
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
+              ) : (
+                filteredRequests.map((r) => (
+                  <tr key={r.id} className="border-t border-[#dce0e5]">
+                    <td className="h-[72px] px-4 py-2 w-[400px] text-[#637488] text-sm font-normal leading-normal">{r.id}</td>
+                    <td className="h-[72px] px-4 py-2 w-[400px] text-[#111418] text-sm font-normal leading-normal">{r.details}</td>
+                    <td className="h-[72px] px-4 py-2 w-[400px] text-[#637488] text-sm font-normal leading-normal">{r.user}</td>
+                    <td className="h-[72px] px-4 py-2 w-60 text-sm font-normal leading-normal">{statusPill(r.status === 'pending' ? 'Pending' : r.status === 'approved' ? 'Completed' : r.status === 'rejected' ? 'Rejected' : r.status)}</td>
+                    <td className="h-[72px] px-4 py-2 w-60 text-[#637488] text-sm font-bold leading-normal tracking-[0.015em]">
+                      <button className="text-[#1978e5] hover:underline">View</button>
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
         </div>
-      )}
-      
-      <div className="mt-8 bg-gray-800 border border-gray-700 rounded-lg p-6">
-        <h2 className="text-xl font-semibold mb-4 text-gray-100">About Verification</h2>
-        <p className="text-gray-300 mb-4">
-          Verification requests are sent to the organizations listed in your resume entries. Once an organization verifies your entry,
-          it will be permanently marked as verified on the blockchain.
-        </p>
-        <p className="text-gray-300">
-          Verified entries add credibility to your resume and can be trusted by potential employers or clients.
-        </p>
+      </div>
+      {/* Bottom left actions */}
+      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 px-4 pb-6">
+        <button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#1978e5] text-white text-sm font-bold leading-normal tracking-[0.015em]">
+          <span className="truncate">New Request</span>
+        </button>
+        <a href="#" className="flex items-center gap-2 text-[#637488] text-sm font-medium leading-normal hover:underline">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256"><path d="M140,180a12,12,0,1,1-12-12A12,12,0,0,1,140,180ZM128,72c-22.06,0-40,16.15-40,36v4a8,8,0,0,0,16,0v-4c0-11,10.77-20,24-20s24,9,24,20-10.77,20-24,20a8,8,0,0,0-8,8v8a8,8,0,0,0,16,0v-.72c18.24-3.35,32-17.9,32-35.28C168,88.15,150.06,72,128,72Zm104,56A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg>
+          Help and docs
+        </a>
       </div>
     </div>
   );

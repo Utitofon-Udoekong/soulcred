@@ -130,13 +130,13 @@ export default function EditResumePage({ params }: { params: Promise<{ id: strin
 
   // Handle cancel
   const handleCancel = () => {
-    router.push(`/dashboard/resume/${id}`);
+    router.push(`/dashboard/credentials/${id}`);
   };
 
   if (loading || web3Loading) {
     return (
       <div className="container mx-auto px-4 py-16 text-center">
-        <div className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-600"></div>
+        <div className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#1978e5]"></div>
         <p className="mt-4 text-gray-600">Loading resume...</p>
       </div>
     );
@@ -188,13 +188,13 @@ export default function EditResumePage({ params }: { params: Promise<{ id: strin
             <div className="flex space-x-4">
               <button
                 onClick={handleCancel}
-                className="px-4 py-2 bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-100 rounded hover:bg-gray-300 dark:hover:bg-gray-700"
+                className="px-4 py-2 bg-[#f0f2f4] text-[#111418] rounded hover:bg-[#f0f2f4]/90"
               >
                 Cancel
               </button>
               <button
                 onClick={handlePreview}
-                className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                className="px-4 py-2 bg-[#1978e5] text-white rounded hover:bg-[#1978e5]/90"
               >
                 Preview
               </button>
@@ -213,7 +213,7 @@ export default function EditResumePage({ params }: { params: Promise<{ id: strin
                   type="text"
                   value={resumeName}
                   onChange={(e) => setResumeName(e.target.value)}
-                  className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full bg-[#f0f2f4] border-none rounded px-3 py-2 text-[#111418] focus:outline-none focus:ring-2 focus:ring-[#1978e5]"
                   placeholder="My Professional Resume"
                   required
                 />
@@ -226,7 +226,7 @@ export default function EditResumePage({ params }: { params: Promise<{ id: strin
                   type="text"
                   value={resumeVersion}
                   onChange={(e) => setResumeVersion(e.target.value)}
-                  className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full bg-[#f0f2f4] border-none rounded px-3 py-2 text-[#111418] focus:outline-none focus:ring-2 focus:ring-[#1978e5]"
                   placeholder="1.0"
                 />
               </div>
@@ -248,7 +248,7 @@ export default function EditResumePage({ params }: { params: Promise<{ id: strin
                     ...prev!,
                     profile: { ...prev!.profile, name: e.target.value }
                   }))}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full bg-[#f0f2f4] border-none rounded px-3 py-2 text-[#111418] focus:outline-none focus:ring-2 focus:ring-[#1978e5]"
                 />
               </div>
               <div>
@@ -261,7 +261,7 @@ export default function EditResumePage({ params }: { params: Promise<{ id: strin
                     ...prev!,
                     profile: { ...prev!.profile, bio: e.target.value }
                   }))}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full bg-[#f0f2f4] border-none rounded px-3 py-2 text-[#111418] focus:outline-none focus:ring-2 focus:ring-[#1978e5]"
                   rows={3}
                 />
               </div>
@@ -276,7 +276,7 @@ export default function EditResumePage({ params }: { params: Promise<{ id: strin
                     ...prev!,
                     profile: { ...prev!.profile, skills: e.target.value.split(',').map(s => s.trim()) }
                   }))}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full bg-[#f0f2f4] border-none rounded px-3 py-2 text-[#111418] focus:outline-none focus:ring-2 focus:ring-[#1978e5]"
                   placeholder="Enter skills separated by commas"
                 />
               </div>
@@ -291,7 +291,7 @@ export default function EditResumePage({ params }: { params: Promise<{ id: strin
                     ...prev!,
                     profile: { ...prev!.profile, email: e.target.value }
                   }))}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full bg-[#f0f2f4] border-none rounded px-3 py-2 text-[#111418] focus:outline-none focus:ring-2 focus:ring-[#1978e5]"
                 />
               </div>
               <div>
@@ -305,7 +305,7 @@ export default function EditResumePage({ params }: { params: Promise<{ id: strin
                     ...prev!,
                     profile: { ...prev!.profile, phone: e.target.value }
                   }))}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full bg-[#f0f2f4] border-none rounded px-3 py-2 text-[#111418] focus:outline-none focus:ring-2 focus:ring-[#1978e5]"
                 />
               </div>
               <div>
@@ -319,7 +319,7 @@ export default function EditResumePage({ params }: { params: Promise<{ id: strin
                     ...prev!,
                     profile: { ...prev!.profile, location: e.target.value }
                   }))}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full bg-[#f0f2f4] border-none rounded px-3 py-2 text-[#111418] focus:outline-none focus:ring-2 focus:ring-[#1978e5]"
                 />
               </div>
               
@@ -342,7 +342,7 @@ export default function EditResumePage({ params }: { params: Promise<{ id: strin
                             profile: { ...prev!.profile, socialLinks: newSocialLinks }
                           }));
                         }}
-                        className="w-1/3 px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-1/3 bg-[#f0f2f4] border-none rounded px-3 py-2 text-[#111418] focus:outline-none focus:ring-2 focus:ring-[#1978e5]"
                         placeholder="Platform"
                       />
                       <input

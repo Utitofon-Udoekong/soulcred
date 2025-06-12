@@ -31,13 +31,13 @@ function RequestActionModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
-      <div className="bg-gray-800 rounded-lg shadow-lg max-w-md w-full p-6 border border-gray-700">
-        <h3 className="text-lg font-semibold text-white mb-2">
+      <div className="bg-white rounded-lg shadow-lg max-w-md w-full p-6 border border-[#e5e7eb]">
+        <h3 className="text-lg font-semibold text-[#111418] mb-2">
           {actionType === 'approve' ? 'Approve Verification Request' : 'Reject Verification Request'}
         </h3>
-        <p className="text-gray-400 text-sm mb-4">{hint}</p>
+        <p className="text-[#637488] text-sm mb-4">{hint}</p>
         <textarea
-          className="w-full bg-gray-700 border border-gray-600 rounded px-3 py-2 text-white h-24 mb-4"
+          className="w-full bg-[#f0f2f4] border-none rounded px-3 py-2 text-[#111418] h-24 mb-4 focus:outline-none focus:ring-2 focus:ring-[#1978e5]"
           placeholder={actionType === 'approve' ? 'e.g. Verified employment from Jan 2022 to Dec 2023.' : 'e.g. Insufficient evidence for claimed experience.'}
           value={details}
           onChange={e => setDetails(e.target.value)}
@@ -46,7 +46,7 @@ function RequestActionModal({
         <div className="flex justify-end gap-2">
           <button
             onClick={onClose}
-            className="px-4 py-2 text-gray-300 hover:text-white"
+            className="px-4 py-2 text-[#637488] hover:text-[#111418]"
             disabled={loading}
           >
             Cancel
@@ -54,7 +54,7 @@ function RequestActionModal({
           <button
             onClick={() => onSubmit(details)}
             disabled={!details.trim() || loading}
-            className={`px-4 py-2 rounded ${!details.trim() || loading ? 'bg-gray-600 text-gray-300 cursor-not-allowed' : actionType === 'approve' ? 'bg-green-600 hover:bg-green-700 text-white' : 'bg-red-600 hover:bg-red-700 text-white'}`}
+            className={`px-4 py-2 rounded ${!details.trim() || loading ? 'bg-[#f0f2f4] text-[#637488] cursor-not-allowed' : actionType === 'approve' ? 'bg-green-600 hover:bg-green-700 text-white' : 'bg-red-600 hover:bg-red-700 text-white'}`}
           >
             {loading ? (actionType === 'approve' ? 'Approving...' : 'Rejecting...') : (actionType === 'approve' ? 'Approve' : 'Reject')}
           </button>
@@ -157,7 +157,7 @@ export default function OrganizationPage() {
     return (
       <div className="max-w-4xl mx-auto p-6">
         <div className="flex justify-center items-center h-64">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#1978e5]"></div>
         </div>
       </div>
     );
@@ -166,7 +166,7 @@ export default function OrganizationPage() {
   if (detailsError) {
     return (
       <div className="max-w-4xl mx-auto p-6">
-        <div className="bg-red-900/30 border border-red-900/50 rounded text-red-300 p-4">
+        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
           {detailsError.toString()}
         </div>
       </div>
@@ -175,48 +175,48 @@ export default function OrganizationPage() {
 
   if (!details || !details.exists) {
     return (
-      <div className="max-w-4xl mx-auto p-6">
-        <h1 className="text-2xl font-bold text-white mb-6">Register Organization</h1>
-        <div className="bg-gray-800 rounded-lg border border-gray-700 p-6">
+      <div className="max-w-2xl mx-auto p-6">
+        <h1 className="text-2xl font-bold text-[#111418] mb-6">Register Organization</h1>
+        <div className="bg-white rounded-lg border border-[#e5e7eb] p-6">
           {error && (
-            <div className="mb-4 p-3 bg-red-900/30 border border-red-900/50 rounded text-red-300">
+            <div className="mb-4 p-3 bg-red-100 border border-red-400 rounded text-red-700">
               {error}
             </div>
           )}
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-gray-300 mb-2">Organization Name</label>
+              <label className="block text-[#111418] mb-2 font-medium">Organization Name</label>
               <input
                 type="text"
                 name="name"
                 value={formData.name}
                 onChange={handleInputChange}
                 required
-                className="w-full bg-gray-700 border border-gray-600 rounded px-3 py-2 text-white"
+                className="w-full bg-[#f0f2f4] border-none rounded px-3 py-2 text-[#111418] focus:outline-none focus:ring-2 focus:ring-[#1978e5]"
                 placeholder="Enter organization name"
               />
             </div>
             <div>
-              <label className="block text-gray-300 mb-2">Email</label>
+              <label className="block text-[#111418] mb-2 font-medium">Email</label>
               <input
                 type="email"
                 name="email"
                 value={formData.email}
                 onChange={handleInputChange}
                 required
-                className="w-full bg-gray-700 border border-gray-600 rounded px-3 py-2 text-white"
+                className="w-full bg-[#f0f2f4] border-none rounded px-3 py-2 text-[#111418] focus:outline-none focus:ring-2 focus:ring-[#1978e5]"
                 placeholder="Enter organization email"
               />
             </div>
             <div>
-              <label className="block text-gray-300 mb-2">Website</label>
+              <label className="block text-[#111418] mb-2 font-medium">Website</label>
               <input
                 type="url"
                 name="website"
                 value={formData.website}
                 onChange={handleInputChange}
                 required
-                className="w-full bg-gray-700 border border-gray-600 rounded px-3 py-2 text-white"
+                className="w-full bg-[#f0f2f4] border-none rounded px-3 py-2 text-[#111418] focus:outline-none focus:ring-2 focus:ring-[#1978e5]"
                 placeholder="Enter organization website"
               />
             </div>
@@ -225,8 +225,8 @@ export default function OrganizationPage() {
               disabled={submitting}
               className={`w-full py-2 px-4 rounded ${
                 submitting
-                  ? 'bg-gray-600 text-gray-300 cursor-not-allowed'
-                  : 'bg-blue-600 hover:bg-blue-700 text-white'
+                  ? 'bg-[#f0f2f4] text-[#637488] cursor-not-allowed'
+                  : 'bg-[#1978e5] hover:bg-[#1978e5]/90 text-white'
               }`}
             >
               {submitting ? 'Registering...' : 'Register Organization'}
@@ -249,80 +249,78 @@ export default function OrganizationPage() {
   };
 
   return (
-    <div className="mx-auto p-6">
-      <h1 className="text-2xl font-bold text-white mb-6">Organization Dashboard</h1>
-      
+    <div className="container mx-auto px-4 py-8">
+      <h1 className="text-2xl font-bold text-[#111418] mb-8">Organization Dashboard</h1>
       {/* Organization Status */}
-      <div className="bg-gray-800 rounded-lg border border-gray-700 p-6 mx-auto mb-6">
+      <div className="bg-white rounded-lg border border-[#e5e7eb] p-6 mx-auto mb-6">
         <div className="flex items-center mb-4">
           <span className={`w-3 h-3 rounded-full mr-2 ${status.isVerified ? 'bg-green-500' : 'bg-yellow-500'}`}></span>
-          <span className="text-white font-semibold text-lg">{status.name}</span>
+          <span className="text-[#111418] font-semibold text-lg">{status.name}</span>
           {status.isVerified ? (
-            <span className="ml-3 px-2 py-1 text-xs font-semibold rounded bg-green-900 text-green-300">Verified</span>
+            <span className="ml-3 px-2 py-1 text-xs font-semibold rounded bg-[#e6f4ea] text-[#1e7e34]">Verified</span>
           ) : (
-            <span className="ml-3 px-2 py-1 text-xs font-semibold rounded bg-yellow-900 text-yellow-300">Pending</span>
+            <span className="ml-3 px-2 py-1 text-xs font-semibold rounded bg-[#fffbe6] text-[#bfa800]">Pending</span>
           )}
         </div>
         <dl className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm">
-          <dt className="text-gray-400">Email</dt>
-          <dd className="text-white break-all">{status.email}</dd>
-          <dt className="text-gray-400">Website</dt>
+          <dt className="text-[#637488]">Email</dt>
+          <dd className="text-[#111418] break-all">{status.email}</dd>
+          <dt className="text-[#637488]">Website</dt>
           <dd>
-            <a href={status.website} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline break-all">
+            <a href={status.website} target="_blank" rel="noopener noreferrer" className="text-[#1978e5] hover:underline break-all">
               {status.website}
             </a>
           </dd>
-          <dt className="text-gray-400">Last Updated</dt>
-          <dd className="text-white">{new Date(status.lastUpdateTimestamp * 1000).toLocaleString()}</dd>
+          <dt className="text-[#637488]">Last Updated</dt>
+          <dd className="text-[#111418]">{new Date(status.lastUpdateTimestamp * 1000).toLocaleString()}</dd>
           {status.isVerified && (
             <>
-              <dt className="text-gray-400">Verified On</dt>
-              <dd className="text-white">{new Date(status.verificationTimestamp * 1000).toLocaleString()}</dd>
+              <dt className="text-[#637488]">Verified On</dt>
+              <dd className="text-[#111418]">{new Date(status.verificationTimestamp * 1000).toLocaleString()}</dd>
             </>
           )}
         </dl>
       </div>
-
       {/* Pending Verification Requests */}
       {status.isVerified && (
-        <div className="bg-gray-800 rounded-lg border border-gray-700 overflow-hidden">
+        <div className="bg-white rounded-lg border border-[#e5e7eb] overflow-hidden">
           <div className="p-6">
-            <h2 className="text-xl font-bold text-white mb-4">Pending Verification Requests</h2>
+            <h2 className="text-xl font-bold text-[#111418] mb-4">Pending Verification Requests</h2>
             {loadingRequests ? (
               <div className="flex justify-center items-center h-32">
-                <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500"></div>
+                <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-[#1978e5]"></div>
               </div>
             ) : pendingRequests.length === 0 ? (
-              <p className="text-gray-400 text-center py-4">No pending verification requests</p>
+              <p className="text-[#637488] text-center py-4">No pending verification requests</p>
             ) : (
               <div className="overflow-x-auto">
-                <table className="min-w-full divide-y divide-gray-700">
-                  <thead className="bg-gray-700">
+                <table className="min-w-full divide-y divide-[#e5e7eb]">
+                  <thead className="bg-[#f0f2f4]">
                     <tr>
-                      <th className="px-4 py-2 text-left text-xs font-semibold text-gray-300 uppercase">Resume ID</th>
-                      <th className="px-4 py-2 text-left text-xs font-semibold text-gray-300 uppercase">Entry ID</th>
-                      <th className="px-4 py-2 text-left text-xs font-semibold text-gray-300 uppercase">Details</th>
-                      <th className="px-4 py-2 text-left text-xs font-semibold text-gray-300 uppercase">User</th>
-                      <th className="px-4 py-2 text-left text-xs font-semibold text-gray-300 uppercase">Actions</th>
+                      <th className="px-4 py-2 text-left text-xs font-semibold text-[#637488] uppercase">Resume ID</th>
+                      <th className="px-4 py-2 text-left text-xs font-semibold text-[#637488] uppercase">Entry ID</th>
+                      <th className="px-4 py-2 text-left text-xs font-semibold text-[#637488] uppercase">Details</th>
+                      <th className="px-4 py-2 text-left text-xs font-semibold text-[#637488] uppercase">User</th>
+                      <th className="px-4 py-2 text-left text-xs font-semibold text-[#637488] uppercase">Actions</th>
                     </tr>
                   </thead>
-                  <tbody className="bg-gray-800 divide-y divide-gray-700">
+                  <tbody className="bg-white divide-y divide-[#e5e7eb]">
                     {pendingRequests.map((request) => (
                       <tr key={request.id}>
-                        <td className="px-4 py-2 text-white">{request.resumeId}</td>
-                        <td className="px-4 py-2 text-white">{request.entryId}</td>
-                        <td className="px-4 py-2 text-gray-300">{request.details}</td>
-                        <td className="px-4 py-2 text-gray-400 break-all">{request.user}</td>
+                        <td className="px-4 py-2 text-[#111418]">{request.resumeId}</td>
+                        <td className="px-4 py-2 text-[#111418]">{request.entryId}</td>
+                        <td className="px-4 py-2 text-[#637488]">{request.details}</td>
+                        <td className="px-4 py-2 text-[#637488] break-all">{request.user}</td>
                         <td className="px-4 py-2">
                           <button
                             onClick={() => handleApproveRequest(request.id)}
-                            className="px-3 py-1 bg-green-600 hover:bg-green-700 text-white rounded text-xs mr-2"
+                            className="px-3 py-1 bg-[#e6f4ea] hover:bg-[#c3e6cb] text-[#1e7e34] rounded text-xs mr-2"
                           >
                             Approve
                           </button>
                           <button
                             onClick={() => handleRejectRequest(request.id)}
-                            className="px-3 py-1 bg-red-600 hover:bg-red-700 text-white rounded text-xs"
+                            className="px-3 py-1 bg-[#fff0f0] hover:bg-[#ffd6d6] text-[#d32f2f] rounded text-xs"
                           >
                             Reject
                           </button>

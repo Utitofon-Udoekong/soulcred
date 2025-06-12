@@ -1,153 +1,117 @@
 'use client';
 
-import { CivicAuthButton } from '@/app/components/auth/CivicAuthButton';
 import Link from 'next/link';
-import Navbar from './components/Navbar';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import { useUser } from '@civic/auth-web3/react';
+import { useWeb3 } from '@/app/providers/Web3Provider';
 
 export default function Home() {
+  const { authStatus } = useUser();
+  const { walletConnected } = useWeb3();
+  const isConnected = authStatus === 'authenticated' && walletConnected;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 text-white">
-      <Navbar />
+    <div className="relative flex min-h-screen flex-col bg-white font-sans overflow-x-hidden">
+      <Header />
       {/* Hero Section */}
-      <div className="relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-          <div className="text-center space-y-8">
-            <h1 className="text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">
-              SoulCred
-            </h1>
-            <p className="text-2xl text-gray-300 max-w-3xl mx-auto">
-              Build your professional identity on the blockchain. Create verifiable resumes that employers trust.
-            </p>
-            <div className="flex justify-center">
-              <CivicAuthButton />
+      <div className="px-4 sm:px-6 md:px-10 lg:px-40 flex flex-1 justify-center py-5">
+        <div className="flex flex-col max-w-[960px] flex-1 w-full">
+          <div className="flex min-h-[320px] sm:min-h-[400px] md:min-h-[480px] flex-col gap-6 bg-cover bg-center bg-no-repeat rounded-xl items-start justify-end px-4 pb-10 md:px-10" style={{backgroundImage: 'linear-gradient(rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.4) 100%), url(/images/hero.png)'}}>
+            <div className="flex flex-col gap-2 text-left w-full max-w-xl">
+              <h1 className="text-white text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black leading-tight tracking-[-0.033em]">Manage and Verify Soulbound Credentials</h1>
+              <h2 className="text-white text-xs sm:text-sm md:text-base font-normal">SoulCred is the platform for managing and verifying soulbound NFT credentials. Issue, manage, and verify credentials with ease.</h2>
             </div>
+            {isConnected && (
+              <Link href="/dashboard" className="mt-4 rounded-xl h-10 md:h-12 px-4 md:px-5 bg-[#1978e5] text-white text-sm md:text-base font-bold flex items-center justify-center w-full max-w-xs">Go to Dashboard</Link>
+            )}
           </div>
         </div>
       </div>
 
-      {/* Features Section */}
-      <div className="py-24 bg-gray-800/50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-white mb-4">Why Choose SoulCred?</h2>
-            <p className="text-xl text-gray-300">The future of professional credentials is here</p>
+      {/* Why SoulCred Section */}
+      <section className="flex flex-col gap-10 px-4 sm:px-6 md:px-10 lg:px-0 py-10 max-w-[960px] mx-auto w-full">
+        <div className="flex flex-col gap-4">
+          <h1 className="text-[#111418] text-xl sm:text-2xl md:text-4xl font-bold leading-tight max-w-[720px]">Why SoulCred?</h1>
+          <p className="text-[#111418] text-sm sm:text-base font-normal max-w-[720px]">SoulCred is the platform for managing and verifying soulbound NFT credentials. Issue, manage, and verify credentials with ease.</p>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+          {/* Secure */}
+          <div className="flex flex-1 gap-3 rounded-lg border border-[#dce0e5] bg-white p-4 flex-col">
+            <div className="text-[#111418]">
+              {/* ShieldCheck Icon */}
+              <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+                <path d="M208,40H48A16,16,0,0,0,32,56v58.78c0,89.61,75.82,119.34,91,124.39a15.53,15.53,0,0,0,10,0c15.2-5.05,91-34.78,91-124.39V56A16,16,0,0,0,208,40Zm0,74.79c0,78.42-66.35,104.62-80,109.18-13.53-4.51-80-30.69-80-109.18V56H208ZM82.34,141.66a8,8,0,0,1,11.32-11.32L112,148.68l50.34-50.34a8,8,0,0,1,11.32,11.32l-56,56a8,8,0,0,1-11.32,0Z" />
+              </svg>
+            </div>
+            <div className="flex flex-col gap-1">
+              <h2 className="text-[#111418] text-base font-bold leading-tight">Secure</h2>
+              <p className="text-[#637488] text-sm font-normal">Soulbound credentials are securely stored on the blockchain and cannot be transferred or copied.</p>
+            </div>
           </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="p-8 bg-gray-800/50 rounded-xl border border-gray-700 hover:border-blue-500/50 transition-all duration-300">
-              <div className="rounded-full bg-blue-900/30 p-4 w-16 h-16 flex items-center justify-center mb-6">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold text-white mb-4">Blockchain-Powered Resumes</h3>
-              <p className="text-gray-300">Create immutable, tamper-proof professional profiles that showcase your achievements with cryptographic proof.</p>
+          {/* Scalable */}
+          <div className="flex flex-1 gap-3 rounded-lg border border-[#dce0e5] bg-white p-4 flex-col">
+            <div className="text-[#111418]">
+              {/* UsersThree Icon */}
+              <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+                <path d="M244.8,150.4a8,8,0,0,1-11.2-1.6A51.6,51.6,0,0,0,192,128a8,8,0,0,1-7.37-4.89,8,8,0,0,1,0-6.22A8,8,0,0,1,192,112a24,24,0,1,0-23.24-30,8,8,0,1,1-15.5-4A40,40,0,1,1,219,117.51a67.94,67.94,0,0,1,27.43,21.68A8,8,0,0,1,244.8,150.4ZM190.92,212a8,8,0,1,1-13.84,8,57,57,0,0,0-98.16,0,8,8,0,1,1-13.84-8,72.06,72.06,0,0,1,33.74-29.92,48,48,0,1,1,58.36,0A72.06,72.06,0,0,1,190.92,212ZM128,176a32,32,0,1,0-32-32A32,32,0,0,0,128,176ZM72,120a8,8,0,0,0-8-8A24,24,0,1,1,87.24,82a8,8,0,1,0,15.5-4A40,40,0,1,0,37,117.51,67.94,67.94,0,0,0,9.6,139.19a8,8,0,1,0,12.8,9.61A51.6,51.6,0,0,1,64,128,8,8,0,0,0,72,120Z" />
+              </svg>
             </div>
-
-            <div className="p-8 bg-gray-800/50 rounded-xl border border-gray-700 hover:border-green-500/50 transition-all duration-300">
-              <div className="rounded-full bg-green-900/30 p-4 w-16 h-16 flex items-center justify-center mb-6">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold text-white mb-4">Verified Credentials</h3>
-              <p className="text-gray-300">Get your achievements verified by trusted organizations and institutions on the blockchain.</p>
+            <div className="flex flex-col gap-1">
+              <h2 className="text-[#111418] text-base font-bold leading-tight">Scalable</h2>
+              <p className="text-[#637488] text-sm font-normal">SoulCred is built to scale to meet the needs of any organization, from small businesses to large enterprises.</p>
             </div>
-
-            <div className="p-8 bg-gray-800/50 rounded-xl border border-gray-700 hover:border-purple-500/50 transition-all duration-300">
-              <div className="rounded-full bg-purple-900/30 p-4 w-16 h-16 flex items-center justify-center mb-6">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold text-white mb-4">Decentralized Control</h3>
-              <p className="text-gray-300">Own and control your professional data. Share your verified credentials securely with potential employers.</p>
+          </div>
+          {/* Private */}
+          <div className="flex flex-1 gap-3 rounded-lg border border-[#dce0e5] bg-white p-4 flex-col">
+            <div className="text-[#111418]">
+              {/* Key Icon */}
+              <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+                <path d="M160,16A80.07,80.07,0,0,0,83.91,120.78L26.34,178.34A8,8,0,0,0,24,184v40a8,8,0,0,0,8,8H72a8,8,0,0,0,8-8V208H96a8,8,0,0,0,8-8V184h16a8,8,0,0,0,5.66-2.34l9.56-9.57A80,80,0,1,0,160,16Zm0,144a63.7,63.7,0,0,1-23.65-4.51,8,8,0,0,0-8.84,1.68L116.69,168H96a8,8,0,0,0-8,8v16H72a8,8,0,0,0-8,8v16H40V187.31l58.83-58.82a8,8,0,0,0,1.68-8.84A64,64,0,1,1,160,160Zm32-84a12,12,0,1,1-12-12A12,12,0,0,1,192,76Z" />
+              </svg>
+            </div>
+            <div className="flex flex-col gap-1">
+              <h2 className="text-[#111418] text-base font-bold leading-tight">Private</h2>
+              <p className="text-[#637488] text-sm font-normal">SoulCred allows you to control who can access your credentials and what information they can see.</p>
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* How It Works Section */}
-      <div className="py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-white mb-4">How It Works</h2>
-            <p className="text-xl text-gray-300">Three simple steps to create your verifiable resume</p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="relative">
-              <div className="p-8 bg-gray-800/50 rounded-xl border border-gray-700">
-                <div className="text-4xl font-bold text-blue-400 mb-4">01</div>
-                <h3 className="text-xl font-bold text-white mb-4">Create Your Profile</h3>
-                <p className="text-gray-300">Build your professional profile by adding your work experience, education, and skills.</p>
-              </div>
-              <div className="hidden md:block absolute top-1/2 right-0 transform translate-x-1/2 -translate-y-1/2">
-                <svg className="w-8 h-8 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </div>
-            </div>
-
-            <div className="relative">
-              <div className="p-8 bg-gray-800/50 rounded-xl border border-gray-700">
-                <div className="text-4xl font-bold text-green-400 mb-4">02</div>
-                <h3 className="text-xl font-bold text-white mb-4">Request Verification</h3>
-                <p className="text-gray-300">Request verification from organizations to validate your achievements and credentials.</p>
-              </div>
-              <div className="hidden md:block absolute top-1/2 right-0 transform translate-x-1/2 -translate-y-1/2">
-                <svg className="w-8 h-8 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </div>
-            </div>
-
+      {/* How it Works Section */}
+      <section className="flex flex-col gap-10 px-4 sm:px-6 md:px-10 lg:px-0 py-10 max-w-[960px] mx-auto w-full">
+        <div className="flex flex-col gap-4">
+          <h1 className="text-[#111418] text-xl sm:text-2xl md:text-4xl font-bold leading-tight max-w-[720px]">How it Works</h1>
+          <p className="text-[#111418] text-sm sm:text-base font-normal max-w-[720px]">SoulCred is the platform for managing and verifying soulbound NFT credentials. Issue, manage, and verify credentials with ease.</p>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+          {/* Issue Credentials */}
+          <div className="flex flex-col gap-3 pb-3">
+            <div className="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl" style={{backgroundImage: 'url(/images/issue-credentials.png)'}}></div>
             <div>
-              <div className="p-8 bg-gray-800/50 rounded-xl border border-gray-700">
-                <div className="text-4xl font-bold text-purple-400 mb-4">03</div>
-                <h3 className="text-xl font-bold text-white mb-4">Share Your Resume</h3>
-                <p className="text-gray-300">Share your verified resume with potential employers and showcase your achievements.</p>
-              </div>
+              <p className="text-[#111418] text-base font-medium">Issue Credentials</p>
+              <p className="text-[#637488] text-sm font-normal">Issue soulbound credentials to your users with a few clicks.</p>
+            </div>
+          </div>
+          {/* Manage Credentials */}
+          <div className="flex flex-col gap-3 pb-3">
+            <div className="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl" style={{backgroundImage: 'url(/images/manage-credentials.png)'}}></div>
+            <div>
+              <p className="text-[#111418] text-base font-medium">Manage Credentials</p>
+              <p className="text-[#637488] text-sm font-normal">Manage your soulbound credentials in one place.</p>
+            </div>
+          </div>
+          {/* Verify Credentials */}
+          <div className="flex flex-col gap-3 pb-3">
+            <div className="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl" style={{backgroundImage: 'url(/images/verify-credentials.png)'}}></div>
+            <div>
+              <p className="text-[#111418] text-base font-medium">Verify Credentials</p>
+              <p className="text-[#637488] text-sm font-normal">Verify soulbound credentials with ease.</p>
             </div>
           </div>
         </div>
-      </div>
-
-      {/* CTA Section */}
-      <div className="py-24 bg-gray-800/50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold text-white mb-8">Ready to Build Your Verifiable Resume?</h2>
-          <p className="text-xl text-gray-300 mb-12 max-w-3xl mx-auto">
-            Join the future of professional credentials. Create your blockchain-powered resume today.
-          </p>
-          <div className="flex justify-center">
-              <CivicAuthButton />
-            </div>
-        </div>
-      </div>
-
-      {/* Footer */}
-      <footer className="py-12 border-t border-gray-700">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center text-gray-400">
-            <p>© 2025 SoulCred. All rights reserved.</p>
-            <p className="mt-2 text-sm">Secure, decentralized, and tamper-proof professional credentials on the blockchain</p>
-            <div className="mt-4 flex justify-center items-center gap-2">
-              <Link 
-                href="/admin" 
-                className="text-gray-500 hover:text-gray-400 text-sm flex items-center gap-1"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-                <span>Admin</span>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </footer>
+      </section>
+      <Footer />
     </div>
   );
 }

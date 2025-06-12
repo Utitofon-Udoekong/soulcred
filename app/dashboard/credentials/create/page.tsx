@@ -484,7 +484,7 @@ function CreateResumeFormContent() {
 
     // Redirect to dashboard
     setTimeout(() => {
-      router.push('/dashboard');
+      router.push('/dashboard/credentials');
     }, 500); // Small delay to ensure draft is saved
   };
 
@@ -642,7 +642,7 @@ function CreateResumeFormContent() {
             setUploadProgress(100);
           }
            
-          router.push('/dashboard');
+          router.push('/dashboard/credentials');
         } catch (mintError) {
           console.error("Error minting resume:", mintError);
           setCurrentStep('edit');
@@ -665,7 +665,7 @@ function CreateResumeFormContent() {
       }
       setSuccessMessage('Resume saved as draft successfully!');
       setTimeout(() => {
-        router.push('/dashboard');
+        router.push('/dashboard/credentials');
       }, 1500);
     } catch (error) {
       console.error("Error saving resume:", error);
@@ -763,7 +763,7 @@ function CreateResumeFormContent() {
                   type="text"
                   value={resumeName}
                   onChange={(e) => setResumeName(e.target.value)}
-                  className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full bg-[#f0f2f4] border-none rounded px-3 py-2 text-[#111418] focus:outline-none focus:ring-2 focus:ring-[#1978e5]"
                   placeholder="My Professional Resume"
                   required
                 />
@@ -776,7 +776,7 @@ function CreateResumeFormContent() {
                   type="text"
                   value={resumeVersion}
                   onChange={(e) => setResumeVersion(e.target.value)}
-                  className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full bg-[#f0f2f4] border-none rounded px-3 py-2 text-[#111418] focus:outline-none focus:ring-2 focus:ring-[#1978e5]"
                   placeholder="1.0"
                 />
               </div>
@@ -1373,7 +1373,7 @@ function CreateResumeFormContent() {
         <div className="flex justify-end space-x-4">
           <button
             type="button"
-            onClick={() => router.push('/dashboard')}
+            onClick={() => router.push('/dashboard/credentials')}
             className="px-4 py-2 bg-gray-700 text-gray-200 rounded-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
           >
             Cancel
@@ -1762,7 +1762,7 @@ function CreateResumeFormContent() {
           )}
           <div className="flex justify-center gap-4">
             <Link
-              href="/dashboard"
+              href="/dashboard/credentials"
               className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded"
             >
               Go to Dashboard
