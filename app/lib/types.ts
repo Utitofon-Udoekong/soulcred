@@ -1,5 +1,5 @@
 // Legacy type definition
-export type EntryType = 'work' | 'education' | 'certification' | 'project' | 'skill' | 'award';
+export type EntryType = 'work' | 'education' | 'certification' | 'project' | 'award';
 
 // New enum for better type safety (use this in new code)
 export enum EntryTypeEnum {
@@ -7,8 +7,7 @@ export enum EntryTypeEnum {
   EDUCATION = 1,
   CERTIFICATION = 2,
   PROJECT = 3,
-  SKILL = 4,
-  AWARD = 5
+  AWARD = 4
 }
 
 export interface ResumeEntry {
@@ -40,9 +39,6 @@ export interface ResumeEntry {
   
   // Project-specific fields
   projectUrl?: string;
-  
-  // Skills
-  proficiencyLevel?: 'beginner' | 'intermediate' | 'advanced' | 'expert';
   
   // Awards
   issuer?: string;

@@ -25,14 +25,13 @@ export default function RequestsPage() {
   
   // Use the new hook for verification requests
   const { data: verificationRequests = [], isLoading: loading, error } = useVerificationRequests();
-
-  const [tab, setTab] = useState("All");
+  const [filter, setFilter] = useState("All");
   // Filter real requests by status
   const filteredRequests =
-    tab === "All"
+    filter === "All"
       ? verificationRequests
       : verificationRequests.filter((r) =>
-          tab === "Pending"
+          filter === "Pending"
             ? r.status === "pending"
             : (r.status === "approved" || r.status === "rejected")
         );
@@ -64,6 +63,12 @@ export default function RequestsPage() {
           </span>
         );
     }
+  };
+
+  // Helper to shorten addresses
+  const shortenAddress = (address: string) => {
+    if (!address) return '';
+    return address.length > 10 ? `${address.slice(0, 6)}...${address.slice(-4)}` : address;
   };
 
   if (loading) {
@@ -131,19 +136,7 @@ export default function RequestsPage() {
     <div className="max-w-[960px] mx-auto w-full flex flex-col min-h-screen">
       <div className="flex flex-col gap-2 px-4 pt-4">
         <h1 className="text-[#111418] text-3xl font-bold leading-tight">Requests</h1>
-        <p className="text-[#637488] text-base font-normal leading-normal">Manage and track all verification requests</p>
-      </div>
-      {/* Tabs */}
-      <div className="flex border-b border-[#dce0e5] px-4 gap-8 mt-6">
-        {["All", "Pending", "Completed"].map((t) => (
-          <button
-            key={t}
-            className={`flex flex-col items-center justify-center border-b-[3px] pb-[13px] pt-4 text-sm font-bold tracking-[0.015em] ${tab === t ? 'border-b-[#111418] text-[#111418]' : 'border-b-transparent text-[#637488]'}`}
-            onClick={() => setTab(t)}
-          >
-            {t}
-          </button>
-        ))}
+        <p className="text-[#637488] text-base font-normal leading-normal">Manage and track all your verification requests</p>
       </div>
       {/* Table */}
       <div className="px-4 py-6 flex-1">
@@ -152,10 +145,22 @@ export default function RequestsPage() {
             <thead>
               <tr>
                 <th className="px-4 py-3 text-left text-[#111418] w-[400px] text-sm font-medium leading-normal">Request ID</th>
-                <th className="px-4 py-3 text-left text-[#111418] w-[400px] text-sm font-medium leading-normal">Credential</th>
+                <th className="px-4 py-3 text-left text-[#111418] w-[400px] text-sm font-medium leading-normal">Message</th>
                 <th className="px-4 py-3 text-left text-[#111418] w-[400px] text-sm font-medium leading-normal">Requester</th>
-                <th className="px-4 py-3 text-left text-[#111418] w-60 text-sm font-medium leading-normal">Status</th>
-                <th className="px-4 py-3 text-left text-[#637488] w-60 text-sm font-medium leading-normal">Actions</th>
+                <th className="px-4 py-3 text-left text-[#111418] w-[400px] text-sm font-medium leading-normal">Organization</th>
+                <th className="px-4 py-3 text-left text-[#111418] w-60 text-sm font-medium leading-normal flex items-center gap-2">
+                  Status
+                  <select
+                    value={filter}
+                    onChange={e => setFilter(e.target.value)}
+                    className="ml-2 border border-[#dce0e5] rounded px-2 py-1 text-sm bg-white text-[#111418]"
+                  >
+                    <option value="All">All</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Completed">Completed</option>
+                  </select>
+                </th>
+                <th className="px-4 py-3 text-left text-[#637488] w-60 text-sm font-medium leading-normal">Date</th>
               </tr>
             </thead>
             <tbody>
@@ -168,11 +173,10 @@ export default function RequestsPage() {
                   <tr key={r.id} className="border-t border-[#dce0e5]">
                     <td className="h-[72px] px-4 py-2 w-[400px] text-[#637488] text-sm font-normal leading-normal">{r.id}</td>
                     <td className="h-[72px] px-4 py-2 w-[400px] text-[#111418] text-sm font-normal leading-normal">{r.details}</td>
-                    <td className="h-[72px] px-4 py-2 w-[400px] text-[#637488] text-sm font-normal leading-normal">{r.user}</td>
+                    <td className="h-[72px] px-4 py-2 w-[400px] text-[#637488] text-sm font-normal leading-normal">{shortenAddress(r.user)}</td>
+                    <td className="h-[72px] px-4 py-2 w-[400px] text-[#637488] text-sm font-normal leading-normal">{shortenAddress(r.organization)}</td>
                     <td className="h-[72px] px-4 py-2 w-60 text-sm font-normal leading-normal">{statusPill(r.status === 'pending' ? 'Pending' : r.status === 'approved' ? 'Completed' : r.status === 'rejected' ? 'Rejected' : r.status)}</td>
-                    <td className="h-[72px] px-4 py-2 w-60 text-[#637488] text-sm font-bold leading-normal tracking-[0.015em]">
-                      <button className="text-[#1978e5] hover:underline">View</button>
-                    </td>
+                    <td className="h-[72px] px-4 py-2 w-60 text-[#637488] text-sm font-normal leading-normal">{new Date(r.timestamp * 1000).toLocaleDateString()}</td>
                   </tr>
                 ))
               )}

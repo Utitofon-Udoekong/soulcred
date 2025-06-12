@@ -282,19 +282,12 @@ const getEntryAdditionalInfo = (entry: ResumeMetadata['entries'][number]) => {
           )}
         </>
       );
-    case 'skill':
+    case 'award':
       return (
         <>
-          {entry.proficiencyLevel && (
-            <span className={`text-sm font-medium px-2 py-0.5 rounded ${
-              entry.proficiencyLevel === 'beginner' ? 'bg-blue-900 text-blue-300' :
-              entry.proficiencyLevel === 'intermediate' ? 'bg-green-900 text-green-300' :
-              entry.proficiencyLevel === 'advanced' ? 'bg-purple-900 text-purple-300' :
-              'bg-red-900 text-red-300'
-            }`}>
-              {entry.proficiencyLevel.charAt(0).toUpperCase() + entry.proficiencyLevel.slice(1)}
-            </span>
-          )}
+          {entry.issuedBy && <p className="text-gray-300">Issued by: {entry.issuedBy}</p>}
+          {entry.dateAwarded && <p className="text-sm text-gray-400">Date: {entry.dateAwarded}</p>}
+          {entry.description && <p className="text-sm text-gray-400 mt-1">{entry.description}</p>}
         </>
       );
     default:
@@ -506,16 +499,16 @@ export default function ResumeViewPage({ params }: { params: Promise<{ id: strin
 
   return (
     <div className="max-w-4xl mx-auto p-6">
-      <div className="bg-gray-800 rounded-lg border border-gray-700 overflow-hidden mb-6">
-        <div className="p-6 border-b border-gray-700 flex justify-between items-center">
+      <div className="bg-[#f0f2f4] rounded-lg border border-[#e5e7eb] overflow-hidden mb-6">
+        <div className="p-6 border-b border-[#e5e7eb] flex justify-between items-center">
           <div>
-          <h2 className="text-xl font-bold text-white">{resume.name}</h2>
-          <p className="text-gray-400 mt-1">{userAddress}</p>
+            <h2 className="text-xl font-bold text-[#111418]">{resume.name}</h2>
+            <p className="text-[#637488] mt-1">{userAddress}</p>
           </div>
           <div className="flex items-center space-x-4">
             <Link
               href="/dashboard"
-              className="text-blue-400 hover:text-blue-300 text-sm flex items-center"
+              className="text-[#1978e5] hover:text-[#125bb5] text-sm flex items-center"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -523,10 +516,10 @@ export default function ResumeViewPage({ params }: { params: Promise<{ id: strin
               Back to Dashboard
             </Link>
             <Link
-              href={`/dashboard/resume/edit/${id}`}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded text-sm"
+              href={`/dashboard/credentials/edit/${id}`}
+              className="bg-[#1978e5] hover:bg-[#125bb5] text-white px-4 py-2 rounded text-sm"
             >
-              Edit Resume
+              Edit Credential
             </Link>
           </div>
         </div>
@@ -534,27 +527,27 @@ export default function ResumeViewPage({ params }: { params: Promise<{ id: strin
         <div className="p-6">
           {/* Profile Information Summary */}
           <div className="mb-8">
-            <h3 className="text-lg font-semibold text-white pb-2 border-b border-gray-700 mb-4">
+            <h3 className="text-lg font-semibold text-[#111418] pb-2 border-b border-[#e5e7eb] mb-4">
               Profile Information
             </h3>
 
             <div className="space-y-3">
               <div className="flex flex-col md:flex-row">
                 <div className="md:w-1/4">
-                  <p className="text-gray-300 font-medium">Full Name</p>
+                  <p className="text-[#637488] font-medium">Full Name</p>
                 </div>
                 <div className="md:w-3/4">
-                  <p className="text-white">{resume.profile.name || 'Not provided'}</p>
+                  <p className="text-[#111418]">{resume.profile.name || 'Not provided'}</p>
                 </div>
               </div>
 
               {resume.profile.headline && (
                 <div className="flex flex-col md:flex-row">
                   <div className="md:w-1/4">
-                    <p className="text-gray-300 font-medium">Professional Headline</p>
+                    <p className="text-[#637488] font-medium">Professional Headline</p>
                   </div>
                   <div className="md:w-3/4">
-                    <p className="text-white">{resume.profile.headline}</p>
+                    <p className="text-[#111418]">{resume.profile.headline}</p>
                   </div>
                 </div>
               )}
@@ -562,10 +555,10 @@ export default function ResumeViewPage({ params }: { params: Promise<{ id: strin
               {resume.profile.location && (
                 <div className="flex flex-col md:flex-row">
                   <div className="md:w-1/4">
-                    <p className="text-gray-300 font-medium">Location</p>
+                    <p className="text-[#637488] font-medium">Location</p>
                   </div>
                   <div className="md:w-3/4">
-                    <p className="text-white">{resume.profile.location}</p>
+                    <p className="text-[#111418]">{resume.profile.location}</p>
                   </div>
                 </div>
               )}
@@ -573,10 +566,10 @@ export default function ResumeViewPage({ params }: { params: Promise<{ id: strin
               {resume.profile.contactEmail && (
                 <div className="flex flex-col md:flex-row">
                   <div className="md:w-1/4">
-                    <p className="text-gray-300 font-medium">Contact Email</p>
+                    <p className="text-[#637488] font-medium">Contact Email</p>
                   </div>
                   <div className="md:w-3/4">
-                    <p className="text-white">{resume.profile.contactEmail}</p>
+                    <p className="text-[#111418]">{resume.profile.contactEmail}</p>
                   </div>
                 </div>
               )}
@@ -585,27 +578,27 @@ export default function ResumeViewPage({ params }: { params: Promise<{ id: strin
               {(resume.profile.socialLinks?.linkedin || resume.profile.socialLinks?.github || resume.profile.socialLinks?.twitter || resume.profile.socialLinks?.website) && (
                 <div className="flex flex-col md:flex-row">
                   <div className="md:w-1/4">
-                    <p className="text-gray-300 font-medium">Social Links</p>
+                    <p className="text-[#637488] font-medium">Social Links</p>
                   </div>
                   <div className="md:w-3/4">
                     <div className="flex flex-wrap gap-2">
                       {resume.profile.socialLinks?.linkedin && (
-                        <a href={resume.profile.socialLinks.linkedin} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300">
+                        <a href={resume.profile.socialLinks.linkedin} target="_blank" rel="noopener noreferrer" className="text-[#1978e5] hover:text-[#125bb5]">
                           LinkedIn
                         </a>
                       )}
                       {resume.profile.socialLinks?.github && (
-                        <a href={resume.profile.socialLinks.github} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300">
+                        <a href={resume.profile.socialLinks.github} target="_blank" rel="noopener noreferrer" className="text-[#1978e5] hover:text-[#125bb5]">
                           GitHub
                         </a>
                       )}
                       {resume.profile.socialLinks?.twitter && (
-                        <a href={resume.profile.socialLinks.twitter} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300">
+                        <a href={resume.profile.socialLinks.twitter} target="_blank" rel="noopener noreferrer" className="text-[#1978e5] hover:text-[#125bb5]">
                           Twitter
                         </a>
                       )}
                       {resume.profile.socialLinks?.website && (
-                        <a href={resume.profile.socialLinks.website} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300">
+                        <a href={resume.profile.socialLinks.website} target="_blank" rel="noopener noreferrer" className="text-[#1978e5] hover:text-[#125bb5]">
                           Website
                         </a>
                       )}
@@ -618,12 +611,12 @@ export default function ResumeViewPage({ params }: { params: Promise<{ id: strin
               {resume.profile.skills && resume.profile.skills.length > 0 && (
                 <div className="flex flex-col md:flex-row">
                   <div className="md:w-1/4">
-                    <p className="text-gray-300 font-medium">Skills</p>
+                    <p className="text-[#637488] font-medium">Skills</p>
                   </div>
                   <div className="md:w-3/4">
                     <div className="flex flex-wrap gap-2">
                       {resume.profile.skills.map((skill, index) => (
-                        <span key={index} className="px-2 py-1 bg-gray-700 rounded-full text-sm text-white">
+                        <span key={index} className="px-2 py-1 bg-[#f0f2f4] rounded-full text-sm text-[#111418]">
                           {skill}
                         </span>
                       ))}
@@ -636,12 +629,12 @@ export default function ResumeViewPage({ params }: { params: Promise<{ id: strin
               {resume.profile.languages && resume.profile.languages.length > 0 && (
                 <div className="flex flex-col md:flex-row">
                   <div className="md:w-1/4">
-                    <p className="text-gray-300 font-medium">Languages</p>
+                    <p className="text-[#637488] font-medium">Languages</p>
                   </div>
                   <div className="md:w-3/4">
                     <div className="flex flex-wrap gap-2">
                       {resume.profile.languages.map((language, index) => (
-                        <span key={index} className="px-2 py-1 bg-gray-700 rounded-full text-sm text-white">
+                        <span key={index} className="px-2 py-1 bg-[#f0f2f4] rounded-full text-sm text-[#111418]">
                           {language}
                         </span>
                       ))}
@@ -653,10 +646,10 @@ export default function ResumeViewPage({ params }: { params: Promise<{ id: strin
               {resume.profile.bio && (
                 <div className="flex flex-col md:flex-row mt-4">
                   <div className="md:w-1/4">
-                    <p className="text-gray-300 font-medium">Professional Bio</p>
+                    <p className="text-[#637488] font-medium">Professional Bio</p>
                   </div>
                   <div className="md:w-3/4">
-                    <p className="text-white whitespace-pre-line">{resume.profile.bio}</p>
+                    <p className="text-[#111418] whitespace-pre-line">{resume.profile.bio}</p>
                   </div>
                 </div>
               )}
@@ -666,12 +659,12 @@ export default function ResumeViewPage({ params }: { params: Promise<{ id: strin
           {/* Resume Entries */}
           {resume.entries && resume.entries.length > 0 ? (
             resume.entries.map((entry, index) => (
-              <div key={index} className="mb-8 py-6 last:mb-0 border-b border-gray-700 last:border-b-0">
+              <div key={index} className="mb-8 py-6 last:mb-0 border-b border-[#e5e7eb] last:border-b-0">
                 <div className="flex justify-between items-start mb-4">
                   <div className="flex items-center gap-2">
                     {getEntryTypeIcon(entry.type)}
-                    <h3 className="text-lg font-semibold text-white">{entry.title}</h3>
-                    <span className="ml-2 px-2 py-0.5 rounded text-xs bg-gray-700 text-gray-300 font-medium">
+                    <h3 className="text-lg font-semibold text-[#111418]">{entry.title}</h3>
+                    <span className="ml-2 px-2 py-0.5 rounded text-xs bg-[#f0f2f4] text-[#637488] font-medium">
                       {getEntryTypeName(entry.type)}
                     </span>
                   </div>
@@ -679,13 +672,13 @@ export default function ResumeViewPage({ params }: { params: Promise<{ id: strin
                 </div>
 
                 {verificationError && verifyingEntry === entry.id && (
-                  <div className="mb-4 p-2 bg-red-900/30 border border-red-900/50 rounded text-red-300 text-sm">
+                  <div className="mb-4 p-2 bg-red-100 border border-red-400 rounded text-red-700 text-sm">
                     {verificationError}
                   </div>
                 )}
 
                 {verificationStatuses[entry.id]?.details && (
-                  <div className="mb-4 p-2 bg-gray-700/30 border border-gray-600 rounded text-gray-300 text-sm">
+                  <div className="mb-4 p-2 bg-[#f0f2f4] border border-[#e5e7eb] rounded text-[#637488] text-sm">
                     {verificationStatuses[entry.id].details}
                   </div>
                 )}
@@ -693,19 +686,19 @@ export default function ResumeViewPage({ params }: { params: Promise<{ id: strin
                 <div className="space-y-3">
                   <div className="flex flex-col md:flex-row">
                     <div className="md:w-1/4">
-                      <p className="text-gray-300 font-medium">Organization</p>
+                      <p className="text-[#637488] font-medium">Organization</p>
                     </div>
                     <div className="md:w-3/4">
-                      <p className="text-white">{entry.organization || entry.company}</p>
+                      <p className="text-[#111418]">{entry.organization || entry.company}</p>
                     </div>
                   </div>
 
                   <div className="flex flex-col md:flex-row">
                     <div className="md:w-1/4">
-                      <p className="text-gray-300 font-medium">Duration</p>
+                      <p className="text-[#637488] font-medium">Duration</p>
                     </div>
                     <div className="md:w-3/4">
-                      <p className="text-white">
+                      <p className="text-[#111418]">
                         {new Date(entry.startDate).toLocaleDateString()} - {entry.endDate ? new Date(entry.endDate).toLocaleDateString() : 'Present'}
                       </p>
                     </div>
@@ -714,10 +707,10 @@ export default function ResumeViewPage({ params }: { params: Promise<{ id: strin
                   {entry.description && (
                     <div className="flex flex-col md:flex-row">
                       <div className="md:w-1/4">
-                        <p className="text-gray-300 font-medium">Description</p>
+                        <p className="text-[#637488] font-medium">Description</p>
                       </div>
                       <div className="md:w-3/4">
-                        <p className="text-white whitespace-pre-line">{entry.description}</p>
+                        <p className="text-[#111418] whitespace-pre-line">{entry.description}</p>
                       </div>
                     </div>
                   )}
@@ -726,7 +719,7 @@ export default function ResumeViewPage({ params }: { params: Promise<{ id: strin
                   {getEntryAdditionalInfo(entry) && (
                     <div className="flex flex-col md:flex-row">
                       <div className="md:w-1/4">
-                        <p className="text-gray-300 font-medium">Details</p>
+                        <p className="text-[#637488] font-medium">Details</p>
                       </div>
                       <div className="md:w-3/4">
                         {getEntryAdditionalInfo(entry)}
@@ -738,7 +731,7 @@ export default function ResumeViewPage({ params }: { params: Promise<{ id: strin
                   {entry.attachments && entry.attachments.length > 0 && (
                     <div className="flex flex-col md:flex-row">
                       <div className="md:w-1/4">
-                        <p className="text-gray-300 font-medium">Attachments</p>
+                        <p className="text-[#637488] font-medium">Attachments</p>
                       </div>
                       <div className="md:w-3/4">
                         <div className="flex flex-wrap gap-2">
@@ -746,7 +739,7 @@ export default function ResumeViewPage({ params }: { params: Promise<{ id: strin
                             <button
                               key={attIndex}
                               onClick={() => setSelectedAttachment(attachment)}
-                              className="inline-flex items-center px-2 py-1 text-xs bg-gray-700 text-gray-200 rounded hover:bg-gray-600"
+                              className="inline-flex items-center px-2 py-1 text-xs bg-[#f0f2f4] text-[#111418] rounded hover:bg-[#e5e7eb]"
                             >
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -773,7 +766,7 @@ export default function ResumeViewPage({ params }: { params: Promise<{ id: strin
               </div>
             ))
           ) : (
-            <p className="text-gray-400 text-center py-8">No entries found</p>
+            <p className="text-[#637488] text-center py-8">No entries found</p>
           )}
         </div>
       </div>

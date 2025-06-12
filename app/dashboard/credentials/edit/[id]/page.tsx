@@ -12,7 +12,6 @@ const entryTypeToString = (type: EntryTypeEnum): EntryType => {
     [EntryTypeEnum.EDUCATION]: 'education',
     [EntryTypeEnum.CERTIFICATION]: 'certification',
     [EntryTypeEnum.PROJECT]: 'project',
-    [EntryTypeEnum.SKILL]: 'skill',
     [EntryTypeEnum.AWARD]: 'award'
   };
   return mapping[type];
@@ -182,8 +181,8 @@ export default function EditResumePage({ params }: { params: Promise<{ id: strin
         <div className="container mx-auto px-4 max-w-4xl">
           <div className="flex justify-between items-center mb-8">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Edit Resume</h1>
-              <p className="text-gray-600 dark:text-gray-400 mt-2">Make changes to your resume</p>
+              <h1 className="text-3xl font-bold text-[#111418]">Edit Credential</h1>
+              <p className="text-[#637488] mt-2">Make changes to your credential</p>
             </div>
             <div className="flex space-x-4">
               <button
@@ -202,11 +201,11 @@ export default function EditResumePage({ params }: { params: Promise<{ id: strin
           </div>
 
           {/* Basic Information */}
-          <div className="bg-white dark:bg-gray-900 rounded-lg shadow-sm p-8 mb-8">
-            <h2 className="text-xl font-semibold mb-6 text-gray-900 dark:text-gray-100">Basic Information</h2>
+          <div className="bg-white rounded-lg shadow-sm p-8 mb-8 border border-[#e5e7eb]">
+            <h2 className="text-xl font-semibold mb-6 text-[#111418]">Basic Information</h2>
             <div className="grid grid-cols-1 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-[#637488] mb-2">
                   Resume Name <span className="text-red-400">*</span>
                 </label>
                 <input
@@ -219,7 +218,7 @@ export default function EditResumePage({ params }: { params: Promise<{ id: strin
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-[#637488] mb-2">
                   Resume Version
                 </label>
                 <input
@@ -234,11 +233,11 @@ export default function EditResumePage({ params }: { params: Promise<{ id: strin
           </div>
 
           {/* Profile Information */}
-          <div className="bg-white dark:bg-gray-900 rounded-lg shadow-sm p-8 mb-8">
-            <h2 className="text-xl font-semibold mb-6 text-gray-900 dark:text-gray-100">Profile Information</h2>
+          <div className="bg-white rounded-lg shadow-sm p-8 mb-8 border border-[#e5e7eb]">
+            <h2 className="text-xl font-semibold mb-6 text-[#111418]">Profile Information</h2>
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                <label className="block text-sm font-medium text-[#637488] mb-1">
                   Name
                 </label>
                 <input
@@ -252,7 +251,7 @@ export default function EditResumePage({ params }: { params: Promise<{ id: strin
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                <label className="block text-sm font-medium text-[#637488] mb-1">
                   Bio
                 </label>
                 <textarea
@@ -266,7 +265,7 @@ export default function EditResumePage({ params }: { params: Promise<{ id: strin
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                <label className="block text-sm font-medium text-[#637488] mb-1">
                   Skills
                 </label>
                 <input
@@ -281,7 +280,7 @@ export default function EditResumePage({ params }: { params: Promise<{ id: strin
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                <label className="block text-sm font-medium text-[#637488] mb-1">
                   Email
                 </label>
                 <input
@@ -295,7 +294,7 @@ export default function EditResumePage({ params }: { params: Promise<{ id: strin
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                <label className="block text-sm font-medium text-[#637488] mb-1">
                   Phone
                 </label>
                 <input
@@ -309,7 +308,7 @@ export default function EditResumePage({ params }: { params: Promise<{ id: strin
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                <label className="block text-sm font-medium text-[#637488] mb-1">
                   Location
                 </label>
                 <input
@@ -322,9 +321,8 @@ export default function EditResumePage({ params }: { params: Promise<{ id: strin
                   className="w-full bg-[#f0f2f4] border-none rounded px-3 py-2 text-[#111418] focus:outline-none focus:ring-2 focus:ring-[#1978e5]"
                 />
               </div>
-              
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                <label className="block text-sm font-medium text-[#637488] mb-1">
                   Social Links
                 </label>
                 <div className="space-y-2">
@@ -356,7 +354,7 @@ export default function EditResumePage({ params }: { params: Promise<{ id: strin
                             profile: { ...prev!.profile, socialLinks: newSocialLinks }
                           }));
                         }}
-                        className="w-2/3 px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-2/3 bg-[#f0f2f4] border-none rounded px-3 py-2 text-[#111418] focus:outline-none focus:ring-2 focus:ring-[#1978e5]"
                         placeholder="URL"
                       />
                     </div>
@@ -369,7 +367,7 @@ export default function EditResumePage({ params }: { params: Promise<{ id: strin
                         profile: { ...prev!.profile, socialLinks: newSocialLinks }
                       }));
                     }}
-                    className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 text-sm"
+                    className="text-[#1978e5] hover:text-[#125bb5] text-sm"
                   >
                     + Add Social Link
                   </button>
@@ -379,9 +377,9 @@ export default function EditResumePage({ params }: { params: Promise<{ id: strin
           </div>
 
           {/* Resume Entries */}
-          <div className="bg-white dark:bg-gray-900 rounded-lg shadow-sm p-8">
+          <div className="bg-white rounded-lg shadow-sm p-8 border border-[#e5e7eb]">
             <div className="flex justify-between items-center mb-6">
-              <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">Resume Entries</h2>
+              <h2 className="text-xl font-semibold text-[#111418]">Entries</h2>
               <button
                 onClick={() => {
                   const newEntry: ResumeEntry = {
@@ -400,17 +398,17 @@ export default function EditResumePage({ params }: { params: Promise<{ id: strin
                     entries: [...prev!.entries, newEntry]
                   }));
                 }}
-                className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                className="px-4 py-2 bg-[#1978e5] text-white rounded hover:bg-[#125bb5]"
               >
                 + Add Entry
               </button>
             </div>
             <div className="space-y-6">
               {resumeMetadata.entries.map((entry, index) => (
-                <div key={index} className="border-b border-gray-200 dark:border-gray-700 pb-6 last:border-0">
+                <div key={index} className="border-b border-[#e5e7eb] pb-6 last:border-0">
                   <div className="space-y-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                      <label className="block text-sm font-medium text-[#637488] mb-1">
                         Entry Type
                       </label>
                       <select
@@ -420,18 +418,17 @@ export default function EditResumePage({ params }: { params: Promise<{ id: strin
                           newEntries[index] = { ...entry, type: e.target.value as EntryType };
                           setResumeMetadata(prev => ({ ...prev!, entries: newEntries }));
                         }}
-                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full bg-[#f0f2f4] border-none rounded px-3 py-2 text-[#111418] focus:outline-none focus:ring-2 focus:ring-[#1978e5]"
                       >
                         <option value={entryTypeToString(EntryTypeEnum.WORK)}>Work Experience</option>
                         <option value={entryTypeToString(EntryTypeEnum.EDUCATION)}>Education</option>
                         <option value={entryTypeToString(EntryTypeEnum.CERTIFICATION)}>Certification</option>
                         <option value={entryTypeToString(EntryTypeEnum.PROJECT)}>Project</option>
-                        <option value={entryTypeToString(EntryTypeEnum.SKILL)}>Skill</option>
                         <option value={entryTypeToString(EntryTypeEnum.AWARD)}>Award</option>
                       </select>
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                      <label className="block text-sm font-medium text-[#637488] mb-1">
                         Title
                       </label>
                       <input
@@ -442,11 +439,11 @@ export default function EditResumePage({ params }: { params: Promise<{ id: strin
                           newEntries[index] = { ...entry, title: e.target.value };
                           setResumeMetadata(prev => ({ ...prev!, entries: newEntries }));
                         }}
-                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full bg-[#f0f2f4] border-none rounded px-3 py-2 text-[#111418] focus:outline-none focus:ring-2 focus:ring-[#1978e5]"
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                      <label className="block text-sm font-medium text-[#637488] mb-1">
                         Company/Organization
                       </label>
                       <input
@@ -457,11 +454,11 @@ export default function EditResumePage({ params }: { params: Promise<{ id: strin
                           newEntries[index] = { ...entry, company: e.target.value };
                           setResumeMetadata(prev => ({ ...prev!, entries: newEntries }));
                         }}
-                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full bg-[#f0f2f4] border-none rounded px-3 py-2 text-[#111418] focus:outline-none focus:ring-2 focus:ring-[#1978e5]"
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                      <label className="block text-sm font-medium text-[#637488] mb-1">
                         Description
                       </label>
                       <textarea
@@ -471,13 +468,13 @@ export default function EditResumePage({ params }: { params: Promise<{ id: strin
                           newEntries[index] = { ...entry, description: e.target.value };
                           setResumeMetadata(prev => ({ ...prev!, entries: newEntries }));
                         }}
-                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full bg-[#f0f2f4] border-none rounded px-3 py-2 text-[#111418] focus:outline-none focus:ring-2 focus:ring-[#1978e5]"
                         rows={3}
                       />
                     </div>
                     <div className="grid grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                        <label className="block text-sm font-medium text-[#637488] mb-1">
                           Start Date
                         </label>
                         <input
@@ -488,11 +485,11 @@ export default function EditResumePage({ params }: { params: Promise<{ id: strin
                             newEntries[index] = { ...entry, startDate: e.target.value };
                             setResumeMetadata(prev => ({ ...prev!, entries: newEntries }));
                           }}
-                          className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          className="w-full bg-[#f0f2f4] border-none rounded px-3 py-2 text-[#111418] focus:outline-none focus:ring-2 focus:ring-[#1978e5]"
                         />
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                        <label className="block text-sm font-medium text-[#637488] mb-1">
                           End Date
                         </label>
                         <input
@@ -503,12 +500,12 @@ export default function EditResumePage({ params }: { params: Promise<{ id: strin
                             newEntries[index] = { ...entry, endDate: e.target.value };
                             setResumeMetadata(prev => ({ ...prev!, entries: newEntries }));
                           }}
-                          className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          className="w-full bg-[#f0f2f4] border-none rounded px-3 py-2 text-[#111418] focus:outline-none focus:ring-2 focus:ring-[#1978e5]"
                         />
                       </div>
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                      <label className="block text-sm font-medium text-[#637488] mb-1">
                         Attachments
                       </label>
                       <div className="space-y-2">
@@ -525,16 +522,15 @@ export default function EditResumePage({ params }: { params: Promise<{ id: strin
                                 newEntries[index] = { ...entry, attachments: newAttachments };
                                 setResumeMetadata(prev => ({ ...prev!, entries: newEntries }));
                               }}
-                              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                              className="w-full bg-[#f0f2f4] border-none rounded px-3 py-2 text-[#111418] focus:outline-none focus:ring-2 focus:ring-[#1978e5]"
                               placeholder="IPFS URI"
                             />
                           </div>
                         ))}
-                        
                         {/* File attachments */}
                         {(fileAttachments[index] || []).map((fileAttachment, fileIndex) => (
                           <div key={fileIndex} className="flex items-center gap-2">
-                            <span className="text-sm text-gray-600 dark:text-gray-400">
+                            <span className="text-sm text-[#637488]">
                               {fileAttachment.file.name}
                             </span>
                             <button
@@ -550,7 +546,6 @@ export default function EditResumePage({ params }: { params: Promise<{ id: strin
                             </button>
                           </div>
                         ))}
-
                         {/* File upload input */}
                         <div className="mt-2">
                           <input
@@ -562,7 +557,7 @@ export default function EditResumePage({ params }: { params: Promise<{ id: strin
                           />
                           <label
                             htmlFor={`file-upload-${index}`}
-                            className="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-md shadow-sm text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer"
+                            className="inline-flex items-center px-4 py-2 border border-[#e5e7eb] rounded-md shadow-sm text-sm font-medium text-[#637488] bg-[#f0f2f4] hover:bg-[#e5e7eb] cursor-pointer"
                           >
                             Upload Files
                           </label>
@@ -581,24 +576,24 @@ export default function EditResumePage({ params }: { params: Promise<{ id: strin
 
   // Preview step
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 py-12">
+    <div className="min-h-screen bg-[#f0f2f4] py-12">
       <div className="container mx-auto px-4 max-w-4xl">
         <div className="flex justify-between items-center mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Preview Resume</h1>
-            <p className="text-gray-600 dark:text-gray-400 mt-2">Review your changes before saving</p>
+            <h1 className="text-3xl font-bold text-[#111418]">Preview Resume</h1>
+            <p className="text-[#637488] mt-2">Review your changes before saving</p>
           </div>
           <div className="flex space-x-4">
             <button
               onClick={handleBackToEdit}
-              className="px-4 py-2 bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-100 rounded hover:bg-gray-300 dark:hover:bg-gray-700"
+              className="px-4 py-2 bg-[#f0f2f4] text-[#111418] rounded hover:bg-[#e5e7eb]"
             >
               Back to Edit
             </button>
             <button
               onClick={handleSaveResume}
               disabled={isSubmitting}
-              className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50"
+              className="px-4 py-2 bg-[#1978e5] text-white rounded hover:bg-[#125bb5] disabled:opacity-50"
             >
               {isSubmitting ? 'Saving...' : 'Save Changes'}
             </button>
@@ -606,44 +601,43 @@ export default function EditResumePage({ params }: { params: Promise<{ id: strin
         </div>
 
         {/* Resume Preview */}
-        <div className="bg-white dark:bg-gray-900 rounded-lg shadow-sm p-8">
+        <div className="bg-white rounded-lg shadow-sm p-8">
           {/* Basic Info */}
           <div className="mb-8">
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">{resumeName}</h2>
-            <p className="text-gray-600 dark:text-gray-400">Version {resumeVersion}</p>
+            <h2 className="text-2xl font-bold text-[#111418]">{resumeName}</h2>
+            <p className="text-[#637488]">Version {resumeVersion}</p>
           </div>
 
           {/* Profile Section */}
           <div className="mb-8">
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">{resumeMetadata.profile.name}</h2>
-            <p className="text-gray-600 dark:text-gray-400 mb-4">{resumeMetadata.profile.bio}</p>
+            <h2 className="text-2xl font-bold text-[#111418] mb-2">{resumeMetadata.profile.name}</h2>
+            <p className="text-[#637488] mb-4">{resumeMetadata.profile.bio}</p>
             <div className="flex flex-wrap gap-2 mb-4">
               {resumeMetadata.profile.skills?.map((skill, index) => (
                 <span
                   key={index}
-                  className="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-100 text-sm rounded"
+                  className="px-2 py-1 bg-[#f0f2f4] text-[#111418] text-sm rounded"
                 >
                   {skill}
                 </span>
               ))}
             </div>
-            <div className="grid grid-cols-2 gap-4 text-sm text-gray-600 dark:text-gray-400">
+            <div className="grid grid-cols-2 gap-4 text-sm text-[#637488]">
               {resumeMetadata.profile.email && (
                 <div>
-                  <span className="font-medium text-gray-900 dark:text-gray-100">Email:</span> {resumeMetadata.profile.email}
+                  <span className="font-medium text-[#111418]">Email:</span> {resumeMetadata.profile.email}
                 </div>
               )}
               {resumeMetadata.profile.phone && (
                 <div>
-                  <span className="font-medium text-gray-900 dark:text-gray-100">Phone:</span> {resumeMetadata.profile.phone}
+                  <span className="font-medium text-[#111418]">Phone:</span> {resumeMetadata.profile.phone}
                 </div>
               )}
               {resumeMetadata.profile.location && (
                 <div>
-                  <span className="font-medium text-gray-900 dark:text-gray-100">Location:</span> {resumeMetadata.profile.location}
+                  <span className="font-medium text-[#111418]">Location:</span> {resumeMetadata.profile.location}
                 </div>
               )}
-              
             </div>
             {Object.entries(resumeMetadata.profile.socialLinks || {}).length > 0 && (
               <div className="mt-4 flex flex-wrap gap-2">
@@ -653,7 +647,7 @@ export default function EditResumePage({ params }: { params: Promise<{ id: strin
                     href={url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
+                    className="text-[#1978e5] hover:underline text-sm"
                   >
                     {platform}
                   </a>
@@ -665,19 +659,19 @@ export default function EditResumePage({ params }: { params: Promise<{ id: strin
           {/* Entries Section */}
           <div className="space-y-6">
             {resumeMetadata.entries.map((entry, index) => (
-              <div key={index} className="border-b border-gray-200 dark:border-gray-700 pb-6 last:border-0">
+              <div key={index} className="border-b border-[#e5e7eb] pb-6 last:border-0">
                 <div className="flex items-center gap-2 mb-1">
-                  <span className="text-sm font-medium text-blue-600 dark:text-blue-400">{entry.type}</span>
+                  <span className="text-sm font-medium text-[#1978e5]">{entry.type}</span>
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100">{entry.title}</h3>
-                <p className="text-lg text-gray-700 dark:text-gray-200">{entry.company}</p>
-                <p className="text-gray-600 dark:text-gray-400">
+                <h3 className="text-xl font-semibold text-[#111418]">{entry.title}</h3>
+                <p className="text-lg text-[#637488]">{entry.company}</p>
+                <p className="text-[#637488]">
                   {new Date(entry.startDate).toLocaleDateString()} - {entry.endDate === 'Present' ? 'Present' : new Date(entry.endDate).toLocaleDateString()}
                 </p>
-                <p className="mt-2 text-gray-600 dark:text-gray-400">{entry.description}</p>
+                <p className="mt-2 text-[#637488]">{entry.description}</p>
                 {entry.attachments && entry.attachments.length > 0 && (
                   <div className="mt-4">
-                    <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Attachments:</h4>
+                    <h4 className="text-sm font-medium text-[#637488] mb-2">Attachments:</h4>
                     <div className="flex flex-wrap gap-2">
                       {entry.attachments.map((attachment, attachmentIndex) => (
                         <a
@@ -685,7 +679,7 @@ export default function EditResumePage({ params }: { params: Promise<{ id: strin
                           href={attachment}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
+                          className="text-[#1978e5] hover:underline text-sm"
                         >
                           Attachment {attachmentIndex + 1}
                         </a>

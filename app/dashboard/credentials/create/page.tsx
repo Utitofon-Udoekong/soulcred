@@ -20,7 +20,6 @@ const entryTypeToString = (type: EntryTypeEnum): EntryType => {
     [EntryTypeEnum.EDUCATION]: 'education',
     [EntryTypeEnum.CERTIFICATION]: 'certification',
     [EntryTypeEnum.PROJECT]: 'project',
-    [EntryTypeEnum.SKILL]: 'skill',
     [EntryTypeEnum.AWARD]: 'award'
   };
   return mapping[type];
@@ -33,7 +32,6 @@ const stringToEntryType = (type: string): EntryTypeEnum => {
     'education': EntryTypeEnum.EDUCATION,
     'certification': EntryTypeEnum.CERTIFICATION,
     'project': EntryTypeEnum.PROJECT,
-    'skill': EntryTypeEnum.SKILL,
     'award': EntryTypeEnum.AWARD
   };
   return mapping[type] || EntryTypeEnum.WORK;
@@ -642,7 +640,7 @@ function CreateResumeFormContent() {
             setUploadProgress(100);
           }
            
-          router.push('/dashboard/credentials');
+          // router.push('/dashboard/credentials');
         } catch (mintError) {
           console.error("Error minting resume:", mintError);
           setCurrentStep('edit');
@@ -712,9 +710,9 @@ function CreateResumeFormContent() {
       <div className="max-w-4xl mx-auto p-6">
         <div className="flex justify-between items-center mb-4">
           <div>
-            <h1 className="text-2xl font-bold text-white mb-2">Create Your Resume</h1>
-            <p className="text-gray-300 text-sm">
-              Add your profile information and work experience to build your professional resume.
+            <h1 className="text-2xl font-bold text-[#111418] mb-2">Create Your Credential</h1>
+            <p className="text-[#637488] text-sm">
+              Add your profile information and work experience to build your professional credential.
             </p>
           </div>
           <div className="flex space-x-2">
@@ -733,7 +731,7 @@ function CreateResumeFormContent() {
           </div>
         </div>
 
-        <div className="bg-gray-700 p-3 rounded-md mb-6 text-gray-300 text-sm">
+        <div className="bg-[#f0f2f4] p-3 rounded-md mb-6 text-[#637488] text-sm">
           <p><span className="text-red-400">*</span> indicates required fields</p>
         </div>
 
@@ -750,9 +748,9 @@ function CreateResumeFormContent() {
         )}
 
         {/* Resume Name/Basic Info */}
-        <div className="bg-gray-800 rounded-lg border border-gray-700 overflow-hidden mb-6">
-          <div className="p-6 border-b border-gray-700">
-            <h2 className="text-xl font-semibold text-white mb-4">Basic Information</h2>
+        <div className="bg-white rounded-lg border border-[#e5e7eb] overflow-hidden mb-6">
+          <div className="p-6 border-b border-[#e5e7eb]">
+            <h2 className="text-xl font-semibold text-[#111418] mb-4">Basic Information</h2>
 
             <div className="grid grid-cols-1 gap-4">
               <div>
@@ -785,9 +783,9 @@ function CreateResumeFormContent() {
         </div>
 
         {/* Profile Information */}
-        <div className="bg-gray-800 rounded-lg border border-gray-700 overflow-hidden mb-6">
-          <div className="p-6 border-b border-gray-700">
-            <h2 className="text-xl font-semibold text-white mb-4">Profile Information</h2>
+        <div className="bg-white rounded-lg border border-[#e5e7eb] overflow-hidden mb-6">
+          <div className="p-6 border-b border-[#e5e7eb]">
+            <h2 className="text-xl font-semibold text-[#111418] mb-4">Profile Information</h2>
 
             <div className="grid grid-cols-1 gap-4 mb-4">
               <div>
@@ -798,7 +796,7 @@ function CreateResumeFormContent() {
                   type="text"
                   value={profileData.name || ''}
                   onChange={(e) => setProfileData(prev => ({ ...prev, name: e.target.value }))}
-                  className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full bg-[#f0f2f4] border-none rounded px-3 py-2 text-[#111418] focus:outline-none focus:ring-2 focus:ring-[#1978e5]"
                   placeholder="John Doe"
                   required
                 />
@@ -814,7 +812,7 @@ function CreateResumeFormContent() {
                   type="text"
                   value={profileData.headline || ''}
                   onChange={(e) => setProfileData(prev => ({ ...prev, headline: e.target.value }))}
-                  className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full bg-[#f0f2f4] border-none rounded px-3 py-2 text-[#111418] focus:outline-none focus:ring-2 focus:ring-[#1978e5]"
                   placeholder="Senior Software Engineer"
                 />
               </div>
@@ -827,7 +825,7 @@ function CreateResumeFormContent() {
                   type="text"
                   value={profileData.location || ''}
                   onChange={(e) => setProfileData(prev => ({ ...prev, location: e.target.value }))}
-                  className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full bg-[#f0f2f4] border-none rounded px-3 py-2 text-[#111418] focus:outline-none focus:ring-2 focus:ring-[#1978e5]"
                   placeholder="San Francisco, CA"
                 />
               </div>
@@ -841,7 +839,7 @@ function CreateResumeFormContent() {
                 value={profileData.bio || ''}
                 onChange={(e) => setProfileData(prev => ({ ...prev, bio: e.target.value }))}
                 rows={3}
-                className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full bg-[#f0f2f4] border-none rounded px-3 py-2 text-[#111418] focus:outline-none focus:ring-2 focus:ring-[#1978e5]"
                 placeholder="A brief summary of your professional background and expertise..."
               ></textarea>
             </div>
@@ -854,7 +852,7 @@ function CreateResumeFormContent() {
                 type="email"
                 value={profileData.contactEmail || ''}
                 onChange={(e) => setProfileData(prev => ({ ...prev, contactEmail: e.target.value }))}
-                className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full bg-[#f0f2f4] border-none rounded px-3 py-2 text-[#111418] focus:outline-none focus:ring-2 focus:ring-[#1978e5]"
                 placeholder="your.email@example.com"
               />
             </div>
@@ -874,7 +872,7 @@ function CreateResumeFormContent() {
                       ...prev,
                       socialLinks: { ...prev.socialLinks, linkedin: e.target.value }
                     }))}
-                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full bg-[#f0f2f4] border-none rounded px-3 py-2 text-[#111418] focus:outline-none focus:ring-2 focus:ring-[#1978e5]"
                     placeholder="https://linkedin.com/in/yourprofile"
                   />
                 </div>
@@ -887,7 +885,7 @@ function CreateResumeFormContent() {
                       ...prev,
                       socialLinks: { ...prev.socialLinks, github: e.target.value }
                     }))}
-                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full bg-[#f0f2f4] border-none rounded px-3 py-2 text-[#111418] focus:outline-none focus:ring-2 focus:ring-[#1978e5]"
                     placeholder="https://github.com/yourusername"
                   />
                 </div>
@@ -900,7 +898,7 @@ function CreateResumeFormContent() {
                       ...prev,
                       socialLinks: { ...prev.socialLinks, twitter: e.target.value }
                     }))}
-                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full bg-[#f0f2f4] border-none rounded px-3 py-2 text-[#111418] focus:outline-none focus:ring-2 focus:ring-[#1978e5]"
                     placeholder="https://twitter.com/yourhandle"
                   />
                 </div>
@@ -913,7 +911,7 @@ function CreateResumeFormContent() {
                       ...prev,
                       socialLinks: { ...prev.socialLinks, website: e.target.value }
                     }))}
-                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full bg-[#f0f2f4] border-none rounded px-3 py-2 text-[#111418] focus:outline-none focus:ring-2 focus:ring-[#1978e5]"
                     placeholder="https://yourwebsite.com"
                   />
                 </div>
@@ -959,7 +957,7 @@ function CreateResumeFormContent() {
                       }
                     }
                   }}
-                  className="flex-1 px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="flex-1 bg-[#f0f2f4] border-none rounded px-3 py-2 text-[#111418] focus:outline-none focus:ring-2 focus:ring-[#1978e5]"
                   placeholder="Add a skill and press Enter"
                 />
                 <button
@@ -1019,7 +1017,7 @@ function CreateResumeFormContent() {
                       }
                     }
                   }}
-                  className="flex-1 px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="flex-1 bg-[#f0f2f4] border-none rounded px-3 py-2 text-[#111418] focus:outline-none focus:ring-2 focus:ring-[#1978e5]"
                   placeholder="Add a language and press Enter"
                 />
                 <button
@@ -1042,16 +1040,16 @@ function CreateResumeFormContent() {
           </div>
         </div>
 
-        <div className="bg-gray-800 rounded-lg border border-gray-700 overflow-hidden mb-6">
-          <div className="p-6 border-b border-gray-700">
-            <h2 className="text-xl font-semibold text-white mb-4">Resume Entries</h2>
+        <div className="bg-white rounded-lg border border-[#e5e7eb] overflow-hidden mb-6">
+          <div className="p-6 border-b border-[#e5e7eb]">
+            <h2 className="text-xl font-semibold text-[#111418] mb-4">Entries</h2>
             <p className="text-gray-400 mb-4">Add work experience, education, certifications, and other relevant items to your resume.</p>
 
             {/* Current Entries List */}
             {draft && Array.isArray(draft.entries) && draft.entries.length > 0 && (
               <div className="mb-6">
                 <h3 className="text-md font-medium text-white mb-3">Your Saved Entries</h3>
-                <div className="bg-gray-700 rounded-md p-4 space-y-2">
+                <div className="bg-[#f0f2f4] rounded-md p-4 space-y-2">
                   {draft.entries.map((entry, index) => (
                     <div key={index} className="flex justify-between items-center p-3 bg-gray-800 rounded-md">
                       <div>
@@ -1094,7 +1092,7 @@ function CreateResumeFormContent() {
                   <button
                     key={index}
                     className={`py-2 px-4 mr-2 text-sm font-medium rounded-t-md ${activeFormIndex === index
-                        ? 'bg-gray-700 text-white border-t border-l border-r border-gray-600'
+                        ? 'bg-[#f0f2f4] text-[#111418] border-t border-l border-r border-[#e5e7eb]'
                         : 'text-gray-400 hover:text-gray-300'
                       }`}
                     onClick={() => setActiveFormIndex(index)}
@@ -1130,14 +1128,14 @@ function CreateResumeFormContent() {
                       name="type"
                       value={currentEntry.type}
                       onChange={(e) => handleEntryChange(e, activeFormIndex)}
-                      className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full bg-[#f0f2f4] border-none rounded px-3 py-2 text-[#111418] focus:outline-none focus:ring-2 focus:ring-[#1978e5]"
                       required
                     >
                       <option value={entryTypeToString(EntryTypeEnum.EDUCATION)}>Education</option>
                       <option value={entryTypeToString(EntryTypeEnum.WORK)}>Work Experience</option>
                       <option value={entryTypeToString(EntryTypeEnum.CERTIFICATION)}>Certification</option>
-                      <option value={entryTypeToString(EntryTypeEnum.SKILL)}>Skill</option>
                       <option value={entryTypeToString(EntryTypeEnum.PROJECT)}>Project</option>
+                      <option value={entryTypeToString(EntryTypeEnum.AWARD)}>Award</option>
                     </select>
                   </div>
 
@@ -1152,7 +1150,7 @@ function CreateResumeFormContent() {
                       name="title"
                       value={currentEntry.title}
                       onChange={(e) => handleEntryChange(e, activeFormIndex)}
-                      className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full bg-[#f0f2f4] border-none rounded px-3 py-2 text-[#111418] focus:outline-none focus:ring-2 focus:ring-[#1978e5]"
                       placeholder={
                         stringToEntryType(currentEntry.type) === EntryTypeEnum.EDUCATION
                           ? "Degree or Certificate"
@@ -1160,8 +1158,8 @@ function CreateResumeFormContent() {
                             ? "Job Title"
                             : stringToEntryType(currentEntry.type) === EntryTypeEnum.CERTIFICATION
                               ? "Certification Name"
-                              : stringToEntryType(currentEntry.type) === EntryTypeEnum.SKILL
-                                ? "Skill Name"
+                              : stringToEntryType(currentEntry.type) === EntryTypeEnum.AWARD
+                                ? "Award Name"
                                 : "Project Title"
                       }
                       required
@@ -1179,6 +1177,8 @@ function CreateResumeFormContent() {
                             ? "Issuing Organization"
                             : stringToEntryType(currentEntry.type) === EntryTypeEnum.PROJECT
                               ? "Organization"
+                              : stringToEntryType(currentEntry.type) === EntryTypeEnum.AWARD
+                                ? "Issuing Organization"
                               : "Company"} <span className="text-red-400">*</span>
                     </label>
                     <input
@@ -1187,7 +1187,7 @@ function CreateResumeFormContent() {
                       name="company"
                       value={currentEntry.company}
                       onChange={(e) => handleEntryChange(e, activeFormIndex)}
-                      className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full bg-[#f0f2f4] border-none rounded px-3 py-2 text-[#111418] focus:outline-none focus:ring-2 focus:ring-[#1978e5]"
                       required
                     />
                   </div>
@@ -1203,9 +1203,26 @@ function CreateResumeFormContent() {
                       rows={3}
                       value={currentEntry.description}
                       onChange={(e) => handleEntryChange(e, activeFormIndex)}
-                      className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full bg-[#f0f2f4] border-none rounded px-3 py-2 text-[#111418] focus:outline-none focus:ring-2 focus:ring-[#1978e5]"
                     />
                   </div>
+
+                  {/* Award Date */}
+                  {stringToEntryType(currentEntry.type) === EntryTypeEnum.AWARD && (
+                  <div>
+                    <label htmlFor="dateAwarded" className="block text-sm font-medium text-gray-300 mb-1">
+                      Award Date <span className="text-red-400">*</span>
+                    </label>
+                    <input
+                      type="date" 
+                      id="dateAwarded"
+                      name="dateAwarded"
+                      value={currentEntry.dateAwarded}
+                      onChange={(e) => handleEntryChange(e, activeFormIndex)}
+                      className="w-full bg-[#f0f2f4] border-none rounded px-3 py-2 text-[#111418] focus:outline-none focus:ring-2 focus:ring-[#1978e5]"
+                    /> 
+                  </div>
+                  )}
 
                   {/* Date Range */}
                   <div className="grid grid-cols-2 gap-4">
@@ -1219,7 +1236,7 @@ function CreateResumeFormContent() {
                         name="startDate"
                         value={currentEntry.startDate}
                         onChange={(e) => handleEntryChange(e, activeFormIndex)}
-                        className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full bg-[#f0f2f4] border-none rounded px-3 py-2 text-[#111418] focus:outline-none focus:ring-2 focus:ring-[#1978e5]"
                         required
                       />
                     </div>
@@ -1233,7 +1250,7 @@ function CreateResumeFormContent() {
                         name="endDate"
                         value={currentEntry.endDate}
                         onChange={(e) => handleEntryChange(e, activeFormIndex)}
-                        className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full bg-[#f0f2f4] border-none rounded px-3 py-2 text-[#111418] focus:outline-none focus:ring-2 focus:ring-[#1978e5]"
                       />
                     </div>
                   </div>
@@ -1249,7 +1266,7 @@ function CreateResumeFormContent() {
                       name="organization"
                       value={currentEntry.organization}
                       onChange={(e) => handleEntryChange(e, activeFormIndex)}
-                      className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full bg-[#f0f2f4] border-none rounded px-3 py-2 text-[#111418] focus:outline-none focus:ring-2 focus:ring-[#1978e5]"
                       placeholder="Organization that can verify this entry"
                     />
                   </div>
@@ -1374,14 +1391,14 @@ function CreateResumeFormContent() {
           <button
             type="button"
             onClick={() => router.push('/dashboard/credentials')}
-            className="px-4 py-2 bg-gray-700 text-gray-200 rounded-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            className="px-4 py-2 bg-[#f0f2f4] cursor-pointer text-[#111418] rounded-md hover:bg-[#e5e7eb] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
           >
             Cancel
           </button>
           <button
             type="button"
             onClick={handlePreviewResume}
-            className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            className="px-4 py-2 bg-blue-600 cursor-pointer text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
           >
             Preview Resume
           </button>
@@ -1427,7 +1444,6 @@ function CreateResumeFormContent() {
         case EntryTypeEnum.EDUCATION: return 'Education';
         case EntryTypeEnum.CERTIFICATION: return 'Certifications';
         case EntryTypeEnum.PROJECT: return 'Projects';
-        case EntryTypeEnum.SKILL: return 'Skills';
         case EntryTypeEnum.AWARD: return 'Awards & Honors';
         default: return typeKey;
       }
@@ -1450,7 +1466,7 @@ function CreateResumeFormContent() {
           </div>
         )}
 
-        <div className="bg-gray-800 rounded-lg border border-gray-700 overflow-hidden mb-6">
+        <div className="bg-[#f0f2f4] rounded-lg border border-[#e5e7eb] overflow-hidden mb-6">
           <div className="p-6 border-b border-gray-700">
             <h2 className="text-xl font-semibold text-white">{resumeName}</h2>
             <p className="text-gray-400 mt-1">{address}</p>
@@ -1548,7 +1564,7 @@ function CreateResumeFormContent() {
                     <div className="md:w-3/4">
                       <div className="flex flex-wrap gap-2">
                         {profileData.skills.map((skill, index) => (
-                          <span key={index} className="px-2 py-1 bg-gray-700 rounded-full text-sm text-white">
+                          <span key={index} className="px-2 py-1 bg-[#f0f2f4] rounded-full text-sm text-[#111418]">
                             {skill}
                           </span>
                         ))}
@@ -1566,7 +1582,7 @@ function CreateResumeFormContent() {
                     <div className="md:w-3/4">
                       <div className="flex flex-wrap gap-2">
                         {profileData.languages.map((language, index) => (
-                          <span key={index} className="px-2 py-1 bg-gray-700 rounded-full text-sm text-white">
+                          <span key={index} className="px-2 py-1 bg-[#f0f2f4] rounded-full text-sm text-[#111418]">
                             {language}
                           </span>
                         ))}
@@ -1619,7 +1635,7 @@ function CreateResumeFormContent() {
                                   href={attachment.data}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  className="inline-flex items-center px-2 py-1 text-xs bg-gray-700 text-gray-200 rounded hover:bg-gray-600"
+                                  className="inline-flex items-center px-2 py-1 text-xs bg-[#f0f2f4] text-[#111418] rounded hover:bg-[#e5e7eb]"
                                 >
                                   <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -1656,7 +1672,7 @@ function CreateResumeFormContent() {
           <button
             type="button"
             onClick={handleBackToEdit}
-            className="px-4 py-2 bg-gray-700 text-gray-200 rounded-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            className="px-4 py-2 bg-[#f0f2f4] cursor-pointer text-[#111418] rounded-md hover:bg-[#e5e7eb] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
           >
             Back to Edit
           </button>
@@ -1664,7 +1680,7 @@ function CreateResumeFormContent() {
             type="button"
             onClick={() => handleSaveResume(false)}
             disabled={isSubmitting}
-            className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
+            className="px-4 py-2 bg-blue-600 cursor-pointer text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
           >
             Save as Draft
           </button>
@@ -1672,7 +1688,7 @@ function CreateResumeFormContent() {
             type="button"
             onClick={() => handleSaveResume(true)}
             disabled={isSubmitting}
-            className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50"
+            className="px-4 py-2 bg-green-600 cursor-pointer text-white rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50"
           >
             Mint as NFT
           </button>
@@ -1685,7 +1701,7 @@ function CreateResumeFormContent() {
   if (currentStep === 'saving') {
     return (
       <div className="max-w-4xl mx-auto p-6">
-        <div className="bg-gray-800 p-8 rounded-lg border border-gray-700 text-center">
+        <div className="bg-[#f0f2f4] p-8 rounded-lg border border-[#e5e7eb] text-center">
           <h2 className="text-2xl font-bold text-white mb-6">Saving Your Resume</h2>
           
           {isUploadingAttachments && (
@@ -1694,7 +1710,7 @@ function CreateResumeFormContent() {
                 <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-400"></div>
               </div>
               <p className="text-gray-300 mb-2">Uploading attachments to IPFS...</p>
-              <div className="w-full bg-gray-700 rounded-full h-2.5">
+              <div className="w-full bg-[#f0f2f4] rounded-full h-2.5">
                 <div 
                   className="bg-blue-600 h-2.5 rounded-full transition-all duration-300" 
                   style={{ width: `${uploadProgress}%` }}
@@ -1727,7 +1743,7 @@ function CreateResumeFormContent() {
                 setIsMinting(false);
                 setUploadProgress(0);
               }}
-              className="px-4 py-2 bg-gray-700 text-white rounded-md hover:bg-gray-600"
+              className="px-4 py-2 bg-[#f0f2f4] cursor-pointer text-[#111418] rounded-md hover:bg-[#e5e7eb]"
             >
               Cancel
             </button>
@@ -1740,7 +1756,7 @@ function CreateResumeFormContent() {
   if (currentStep === 'success') {
     return (
       <div className="max-w-4xl mx-auto p-6">
-        <div className="bg-gray-800 rounded-lg border border-gray-700 p-8 text-center">
+        <div className="bg-[#f0f2f4] rounded-lg border border-[#e5e7eb] p-8 text-center">
           <div className="mb-6">
             <svg className="w-16 h-16 text-green-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />

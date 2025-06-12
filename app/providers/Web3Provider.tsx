@@ -592,6 +592,7 @@ function Web3ProviderInner({ children }: { children: React.ReactNode }) {
             status: statusMap[Number(request.status)],
             timestamp: Number(request.timestamp),
             verificationDetails: request.verificationDetails,
+            organization: request.organization,
           } as VerificationRequest;
         })
       );
@@ -632,6 +633,7 @@ function Web3ProviderInner({ children }: { children: React.ReactNode }) {
             status: statusMap[Number(request.status)],
             timestamp: Number(request.timestamp),
             verificationDetails: request.verificationDetails,
+            organization: request.organization,
           } as VerificationRequest;
         })
       );

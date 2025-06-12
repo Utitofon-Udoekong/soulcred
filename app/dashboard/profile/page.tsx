@@ -80,13 +80,13 @@ export default function ProfilePage() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-8 text-white">Your Profile</h1>
+      <h1 className="text-3xl font-bold mb-8 text-[#111418]">Your Profile</h1>
       
       {/* Show login button if user is not authenticated */}
       {!userAuthenticated ? (
-        <div className="bg-gray-800 p-8 rounded-lg shadow-md border border-gray-700 text-center">
-          <h2 className="text-2xl font-bold mb-4 text-white">Sign In</h2>
-          <p className="text-gray-300 mb-6">
+        <div className="bg-white p-8 rounded-lg shadow-md border border-[#f0f2f4] text-center">
+          <h2 className="text-2xl font-bold mb-4 text-[#111418]">Sign In</h2>
+          <p className="text-[#637488] mb-6">
             Please sign in to view and manage your profile.
           </p>
           <UserButton />
@@ -95,18 +95,18 @@ export default function ProfilePage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Left Column - Wallet Info */}
           <div className="lg:col-span-1">
-            <div className="bg-gray-800 p-6 rounded-lg shadow-md border border-gray-700 mb-6">
-              <h2 className="text-xl font-semibold mb-4 text-white">Wallet Information</h2>
+            <div className="bg-white p-6 rounded-lg shadow-md border border-[#f0f2f4] mb-6">
+              <h2 className="text-xl font-semibold mb-4 text-[#111418]">Wallet Information</h2>
               
               {walletConnected ? (
                 <>
                   <div className="mb-4">
-                    <p className="text-sm text-gray-400 mb-1">Connected Address</p>
-                    <p className="text-sm font-mono bg-gray-700 p-2 rounded break-all text-white">
+                    <p className="text-sm text-[#637488] mb-1">Connected Address</p>
+                    <p className="text-sm font-mono bg-[#f0f2f4] p-2 rounded break-all text-[#111418]">
                       {address}
                     </p>
                     <button
-                      className="mt-2 px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 text-xs"
+                      className="mt-2 px-3 py-1 bg-[#1978e5] text-white rounded hover:bg-blue-700 text-xs"
                       onClick={() => {
                         if (address) {
                           navigator.clipboard.writeText(address);
@@ -117,48 +117,48 @@ export default function ProfilePage() {
                     >
                       Copy Wallet Address
                     </button>
-                    <div className="mt-2 text-xs text-gray-300">
-                      Fund your wallet with <span className="font-semibold text-green-400">ETH</span> on Sepolia to pay for gas and mint your resume NFT.
+                    <div className="mt-2 text-xs text-[#637488]">
+                      Fund your wallet with <span className="font-semibold text-green-600">ETH</span> on Sepolia to pay for gas and mint your resume NFT.
                     </div>
                   </div>
                   
                   <div className="mb-4">
-                    <p className="text-sm text-gray-400 mb-1">Balance</p>
-                    <p className="text-sm font-medium text-white">
+                    <p className="text-sm text-[#637488] mb-1">Balance</p>
+                    <p className="text-sm font-medium text-[#111418]">
                       {balance || "Loading..."}
                     </p>
                   </div>
                   
                   <div className="flex items-center mb-4">
                     <div className="w-3 h-3 bg-green-500 rounded-full mr-2"></div>
-                    <p className="text-sm text-gray-300">Connected with Civic Auth</p>
+                    <p className="text-sm text-[#637488]">Connected with Civic Auth</p>
                   </div>
                   
-                  <div className="text-sm text-green-400 font-medium">Wallet connected ✓</div>
+                  <div className="text-sm text-green-600 font-medium">Wallet connected ✓</div>
                 </>
               ) : (
                 <div>
-                  <p className="text-sm text-gray-300 mb-4">
+                  <p className="text-sm text-[#637488] mb-4">
                     Your wallet is being created automatically. Please wait...
                   </p>
                   <div className="flex justify-center">
-                    <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-400"></div>
+                    <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-[#1978e5]"></div>
                   </div>
                 </div>
               )}
             </div>
             
-            <div className="bg-gray-800 p-6 rounded-lg shadow-md border border-gray-700">
+            <div className="bg-white p-6 rounded-lg shadow-md border border-[#f0f2f4]">
               
               <div className="">
-                <h3 className="text-md font-medium mb-3 text-white">Public Resume Link</h3>
+                <h3 className="text-md font-medium mb-3 text-[#111418]">Public Resume Link</h3>
                 <div className="flex flex-col space-y-2">
                   {tokenIds.length > 0 ? (
                     <>
                       <select
                         value={selectedResumeId || ''}
                         onChange={(e) => setSelectedResumeId(e.target.value)}
-                        className="w-full bg-gray-700 text-white p-2 rounded mb-2"
+                        className="w-full bg-[#f0f2f4] text-[#111418] p-2 rounded mb-2"
                       >
                         {tokenIds.map((id) => (
                           <option key={id.toString()} value={id.toString()}>
@@ -171,7 +171,7 @@ export default function ProfilePage() {
                           type="text"
                           readOnly
                           value={selectedResumeId ? `${window.location.origin}/resume/${selectedResumeId}` : "No resume selected"}
-                          className="flex-1 text-sm bg-gray-700 p-2 rounded-l text-white"
+                          className="flex-1 text-sm bg-[#f0f2f4] p-2 rounded-l text-[#111418]"
                         />
                         <button
                           onClick={() => {
@@ -181,7 +181,7 @@ export default function ProfilePage() {
                             }
                           }}
                           disabled={!selectedResumeId}
-                          className="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-r disabled:bg-gray-600"
+                          className="bg-[#1978e5] hover:bg-blue-700 text-white p-2 rounded-r disabled:bg-gray-300"
                         >
                           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                             <path d="M8 2a1 1 0 000 2h2a1 1 0 100-2H8z" />
@@ -191,7 +191,7 @@ export default function ProfilePage() {
                       </div>
                     </>
                   ) : (
-                    <p className="text-sm text-gray-400">No resumes minted yet. Mint a resume to get a public link.</p>
+                    <p className="text-sm text-[#637488]">No resumes minted yet. Mint a resume to get a public link.</p>
                   )}
                 </div>
               </div>
@@ -200,11 +200,11 @@ export default function ProfilePage() {
           
           {/* Right Column - Profile Form */}
           <div className="lg:col-span-2">
-            <div className="bg-gray-800 p-6 rounded-lg shadow-md border border-gray-700">
-              <h2 className="text-xl font-semibold mb-6 text-white">Profile Details</h2>
+            <div className="bg-white p-6 rounded-lg shadow-md border border-[#f0f2f4]">
+              <h2 className="text-xl font-semibold mb-6 text-[#111418]">Profile Details</h2>
               
               {saveSuccess && (
-                <div className="mb-6 bg-green-900/40 border border-green-600 text-green-300 px-4 py-3 rounded relative">
+                <div className="mb-6 bg-green-100 border border-green-600 text-green-700 px-4 py-3 rounded relative">
                   <span className="block sm:inline">Profile saved successfully!</span>
                 </div>
               )}
@@ -212,7 +212,7 @@ export default function ProfilePage() {
               <form onSubmit={handleSubmit}>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                   <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-1">
+                    <label htmlFor="name" className="block text-sm font-medium text-[#637488] mb-1">
                       Full Name
                     </label>
                     <input
@@ -220,13 +220,13 @@ export default function ProfilePage() {
                       id="name"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-600 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                      className="w-full px-3 py-2 border border-[#f0f2f4] rounded-md bg-[#f9fafb] text-[#111418] focus:outline-none focus:ring-[#1978e5] focus:border-[#1978e5]"
                       placeholder="Enter your full name"
                     />
                   </div>
                   
                   <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-1">
+                    <label htmlFor="email" className="block text-sm font-medium text-[#637488] mb-1">
                       Email
                     </label>
                     <input
@@ -234,14 +234,14 @@ export default function ProfilePage() {
                       id="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-600 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                      className="w-full px-3 py-2 border border-[#f0f2f4] rounded-md bg-[#f9fafb] text-[#111418] focus:outline-none focus:ring-[#1978e5] focus:border-[#1978e5]"
                       placeholder="Enter your email"
                     />
                   </div>
                 </div>
                 
                 <div className="mb-6">
-                  <label htmlFor="bio" className="block text-sm font-medium text-gray-300 mb-1">
+                  <label htmlFor="bio" className="block text-sm font-medium text-[#637488] mb-1">
                     Professional Bio
                   </label>
                   <textarea
@@ -249,13 +249,13 @@ export default function ProfilePage() {
                     value={bio}
                     onChange={(e) => setBio(e.target.value)}
                     rows={4}
-                    className="w-full px-3 py-2 border border-gray-600 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full px-3 py-2 border border-[#f0f2f4] rounded-md bg-[#f9fafb] text-[#111418] focus:outline-none focus:ring-[#1978e5] focus:border-[#1978e5]"
                     placeholder="Write a brief professional bio"
                   ></textarea>
                 </div>
                 
                 <div className="mb-6">
-                  <label htmlFor="skills" className="block text-sm font-medium text-gray-300 mb-1">
+                  <label htmlFor="skills" className="block text-sm font-medium text-[#637488] mb-1">
                     Skills (comma separated)
                   </label>
                   <input
@@ -263,7 +263,7 @@ export default function ProfilePage() {
                     id="skills"
                     value={skills}
                     onChange={(e) => setSkills(e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-600 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full px-3 py-2 border border-[#f0f2f4] rounded-md bg-[#f9fafb] text-[#111418] focus:outline-none focus:ring-[#1978e5] focus:border-[#1978e5]"
                     placeholder="e.g. Solidity, React, JavaScript"
                   />
                 </div>
@@ -275,13 +275,13 @@ export default function ProfilePage() {
                       type="checkbox"
                       checked={profileVisible}
                       onChange={(e) => setProfileVisible(e.target.checked)}
-                      className="h-4 w-4 text-blue-600 border-gray-600 rounded focus:ring-blue-500 bg-gray-700"
+                      className="h-4 w-4 text-[#1978e5] border-[#f0f2f4] rounded focus:ring-[#1978e5] bg-[#f9fafb]"
                     />
-                    <label htmlFor="profileVisible" className="ml-2 block text-sm text-gray-300">
+                    <label htmlFor="profileVisible" className="ml-2 block text-sm text-[#637488]">
                       Make my profile publicly visible
                     </label>
                   </div>
-                  <p className="mt-1 text-sm text-gray-400">
+                  <p className="mt-1 text-sm text-[#637488]">
                     When enabled, your profile will be visible to anyone with your public link.
                   </p>
                 </div>
@@ -291,7 +291,7 @@ export default function ProfilePage() {
                     type="submit"
                     disabled={isSaving || !walletConnected}
                     className={`px-4 py-2 rounded-md text-white font-medium ${
-                      isSaving || !walletConnected ? "bg-gray-600" : "bg-blue-600 hover:bg-blue-700"
+                      isSaving || !walletConnected ? "bg-gray-300" : "bg-[#1978e5] hover:bg-blue-700"
                     }`}
                   >
                     {isSaving ? "Saving..." : "Save Profile"}

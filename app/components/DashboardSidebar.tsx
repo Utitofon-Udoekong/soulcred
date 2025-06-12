@@ -83,16 +83,24 @@ export default function DashboardSidebar() {
                     <Logo />
                 </div>
                 <nav className="flex flex-col gap-1">
-                    {navItems.map((item) => (
-                        <Link
-                            key={item.label}
-                            href={item.href}
-                            className={`flex items-center gap-3 px-3 py-2 rounded-xl transition-colors ${pathname === item.href ? 'bg-[#f0f2f4] font-semibold' : ''}`}
-                        >
-                            <span className="text-[#111418]">{item.icon}</span>
-                            <span className="text-[#111418] text-sm font-medium leading-normal">{item.label}</span>
-                        </Link>
-                    ))}
+                    {navItems.map((item) => {
+                        let isActive;
+                        if (item.href === '/dashboard') {
+                            isActive = pathname === '/dashboard';
+                        } else {
+                            isActive = pathname === item.href || pathname.startsWith(item.href + '/');
+                        }
+                        return (
+                            <Link
+                                key={item.label}
+                                href={item.href}
+                                className={`flex items-center gap-3 px-3 py-2 rounded-xl transition-colors ${isActive ? 'bg-[#f0f2f4] font-semibold' : ''}`}
+                            >
+                                <span className="text-[#111418]">{item.icon}</span>
+                                <span className="text-[#111418] text-sm font-medium leading-normal">{item.label}</span>
+                            </Link>
+                        );
+                    })}
                 </nav>
             </div>
             <div className="px-4 mt-8">
