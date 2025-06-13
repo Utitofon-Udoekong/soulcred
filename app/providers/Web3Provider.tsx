@@ -114,7 +114,7 @@ function Web3ProviderInner({ children }: { children: React.ReactNode }) {
         await ipfsService.initialize({
           email: process.env.ipfsStorageEmail,
           spaceName: process.env.ipfsStorageSpaceName,
-          spaceDid: process.env.ipfsStorageKey,
+          // spaceDid: process.env.ipfsStorageKey,
         });
       } catch (error) {
         console.error('Failed to initialize IPFS service:', error);

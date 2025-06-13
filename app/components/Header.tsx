@@ -9,7 +9,7 @@ export default function Header() {
   const { user, isLoading, authStatus } = useUser();
   const { address: wagmiAddress, walletConnected } = useWeb3();
   const userContext = useUser();
-  const address = userHasWallet(userContext) ? userContext.ethereum.address : wagmiAddress;
+  const address = userHasWallet(userContext) ? userContext.ethereum.address : 'Provisioning...';
   const isConnected = authStatus === 'authenticated' && walletConnected;
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -22,10 +22,10 @@ export default function Header() {
         {/* Desktop Nav */}
         <nav className="hidden md:flex flex-1 justify-end gap-8 items-center">
           <div className="flex items-center gap-9">
-            <Link className="text-[#111418] text-sm font-medium" href="#">Product</Link>
-            <Link className="text-[#111418] text-sm font-medium" href="#">Use Cases</Link>
-            <Link className="text-[#111418] text-sm font-medium" href="#">Resources</Link>
-            <Link className="text-[#111418] text-sm font-medium" href="#">Pricing</Link>
+            <Link className="text-[#111418] text-sm font-medium" href="/product">Product</Link>
+            <Link className="text-[#111418] text-sm font-medium" href="/use-case">Use Cases</Link>
+            <Link className="text-[#111418] text-sm font-medium" href="/resources">Resources</Link>
+            <Link className="text-[#111418] text-sm font-medium" href="/pricing">Pricing</Link>
           </div>
           <div className="flex gap-2 items-center min-w-[120px] ml-6">
             {!isConnected ? (
@@ -33,7 +33,7 @@ export default function Header() {
             ) : (
               <div className="flex items-center bg-[#f0f2f4] rounded-xl px-4 h-10 text-[#111418] text-sm font-bold">
                 <span className="w-2 h-2 bg-green-400 rounded-full mr-2"></span>
-                {address ? `${address.slice(0, 6)}...${address.slice(-4)}` : 'Connected'}
+                {address !== 'Provisioning...' ? `${address.slice(0, 6)}...${address.slice(-4)}` : address}
               </div>
             )}
           </div>
@@ -62,17 +62,17 @@ export default function Header() {
       {menuOpen && (
         <nav className="md:hidden bg-white border-t border-[#f0f2f4] px-4 pb-4 animate-fade-in">
           <div className="flex flex-col gap-4 mt-2">
-            <Link className="text-[#111418] text-base font-medium" href="#" onClick={() => setMenuOpen(false)}>Product</Link>
-            <Link className="text-[#111418] text-base font-medium" href="#" onClick={() => setMenuOpen(false)}>Use Cases</Link>
-            <Link className="text-[#111418] text-base font-medium" href="#" onClick={() => setMenuOpen(false)}>Resources</Link>
-            <Link className="text-[#111418] text-base font-medium" href="#" onClick={() => setMenuOpen(false)}>Pricing</Link>
+            <Link className="text-[#111418] text-base font-medium" href="/product" onClick={() => setMenuOpen(false)}>Product</Link>
+            <Link className="text-[#111418] text-base font-medium" href="/use-case" onClick={() => setMenuOpen(false)}>Use Cases</Link>
+            <Link className="text-[#111418] text-base font-medium" href="/resources" onClick={() => setMenuOpen(false)}>Resources</Link>
+            <Link className="text-[#111418] text-base font-medium" href="/pricing" onClick={() => setMenuOpen(false)}>Pricing</Link>
             <div className="flex gap-2 items-center min-w-[120px] mt-2">
               {!isConnected ? (
                 <UserButton className="rounded-xl h-10 px-4 bg-[#1978e5] text-white text-base font-bold login-button w-full" />
               ) : (
                 <div className="flex items-center bg-[#f0f2f4] rounded-xl px-4 h-10 text-[#111418] text-base font-bold w-full">
                   <span className="w-2 h-2 bg-green-400 rounded-full mr-2"></span>
-                  {address ? `${address.slice(0, 6)}...${address.slice(-4)}` : 'Connected'}
+                  {address !== 'Provisioning...' ? `${address.slice(0, 6)}...${address.slice(-4)}` : address}
                 </div>
               )}
             </div>

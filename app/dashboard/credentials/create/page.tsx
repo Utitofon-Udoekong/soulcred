@@ -638,6 +638,7 @@ function CreateResumeFormContent() {
             useResumeDraftStore.getState().deleteDraft(draftId);
             setSuccessMessage('Resume created and published on blockchain!');
             setUploadProgress(100);
+            setCurrentStep('success');
           }
            
           // router.push('/dashboard/credentials');
@@ -1701,14 +1702,14 @@ function CreateResumeFormContent() {
     return (
       <div className="max-w-4xl mx-auto p-6">
         <div className="bg-[#f0f2f4] p-8 rounded-lg border border-[#e5e7eb] text-center">
-          <h2 className="text-2xl font-bold text-white mb-6">Saving Your Resume</h2>
+          <h2 className="text-2xl font-bold text-[#111418] mb-6">Saving Your Resume</h2>
           
           {isUploadingAttachments && (
             <div className="mb-8">
               <div className="flex items-center justify-center mb-4">
                 <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-400"></div>
               </div>
-              <p className="text-gray-300 mb-2">Uploading attachments to IPFS...</p>
+              <p className="text-[#637488] mb-2">Uploading attachments to IPFS...</p>
               <div className="w-full bg-[#f0f2f4] rounded-full h-2.5">
                 <div 
                   className="bg-blue-600 h-2.5 rounded-full transition-all duration-300" 
@@ -1723,8 +1724,8 @@ function CreateResumeFormContent() {
               <div className="flex items-center justify-center mb-4">
                 <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-green-400"></div>
               </div>
-              <p className="text-gray-300 mb-2">Minting your resume NFT...</p>
-              <p className="text-sm text-gray-400">This may take a few moments. Please do not close this window.</p>
+              <p className="text-[#637488] mb-2">Minting your resume NFT...</p>
+              <p className="text-sm text-[#637488]">This may take a few moments. Please do not close this window.</p>
             </div>
           )}
 
@@ -1761,15 +1762,15 @@ function CreateResumeFormContent() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
             </svg>
           </div>
-          <h2 className="text-2xl font-bold text-white mb-4">{successMessage}</h2>
+          <h2 className="text-2xl font-bold text-[#111418] mb-4">{successMessage}</h2>
           {transactionHash && (
             <div className="mb-6">
-              <p className="text-gray-300 mb-2">Transaction Hash:</p>
+              <p className="text-[#637488] mb-2">Transaction Hash:</p>
               <a
                 href={`https://sepolia.etherscan.io/tx/${transactionHash}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blue-400 hover:text-blue-300 break-all"
+                className="text-blue-600 hover:text-blue-800 break-all"
               >
                 {transactionHash}
               </a>

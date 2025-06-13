@@ -89,9 +89,28 @@ export default function OrganizationPage() {
   // Use the new hook for pending requests
   const { data: pendingRequests = [], isLoading: loadingRequests } = usePendingVerificationRequests();
 
+  // Enhanced validation helper with regex
+  const validateFields = (name: string, email: string, website: string) => {
+    if (!name.trim()) return "Name is required";
+    // Email regex: basic RFC 5322 compliant
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email.trim() || !emailRegex.test(email)) return "Please enter a valid email address";
+    // Website regex: requires http(s):// or www. and a domain
+    const websiteRegex = /^(https?:\/\/)?([\w-]+\.)+[\w-]{2,}(\/\S*)?$/i;
+    if (!website.trim() || !websiteRegex.test(website)) return "Please enter a valid website URL (e.g. https://example.com)";
+    return null;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!address) return;
+
+    // Frontend validation
+    const errorMsg = validateFields(formData.name, formData.email, formData.website);
+    if (errorMsg) {
+      setError(errorMsg);
+      return;
+    }
 
     try {
       setSubmitting(true);

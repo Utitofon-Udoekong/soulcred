@@ -279,93 +279,101 @@ export default function AdminPage() {
             })()
           ) : (
             <div className={`${BG_WHITE} rounded-xl border ${BORDER_MAIN} shadow-xl overflow-hidden`}>
-              <div className="grid grid-cols-12 gap-4 p-4 bg-[#f0f2f4] text-sm font-medium ${TEXT_SECONDARY}">
-                <div className="col-span-3">Name</div>
-                <div className="col-span-3">Email</div>
-                <div className="col-span-3">Website</div>
-                <div className="col-span-2">Status</div>
-                <div className="col-span-1">Actions</div>
-              </div>
-              <div className="divide-y divide-[#f0f2f4]">
-                {filteredOrgs.map((org) => (
-                  <div key={org.address} className="grid grid-cols-12 gap-4 p-4 hover:bg-[#e6e8ea] transition-colors duration-200">
-                    <div className="col-span-3">
-                      <div className={`font-medium ${TEXT_MAIN}`}>{org.name}</div>
-                      <div className="text-xs ${TEXT_SECONDARY} font-mono">{org.address}</div>
-                    </div>
-                    <div className="col-span-3 text-sm ${TEXT_SECONDARY}">{org.email}</div>
-                    <div className="col-span-3 text-sm ${TEXT_SECONDARY}">
-                      <a href={org.website} target="_blank" rel="noopener noreferrer" 
-                         className="${TEXT_PRIMARY} hover:text-[#125bb5] transition-colors duration-200">
-                        {org.website}
-                      </a>
-                    </div>
-                    <div className="col-span-2">
-                      {org.isVerified ? (
-                        <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700 border border-green-300">
-                          Verified
-                        </span>
-                      ) : (
-                        <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-700 border border-yellow-300">
-                          Pending
-                        </span>
-                      )}
-                    </div>
-                    <div className="col-span-1 flex items-center gap-3">
-                      {!org.isVerified && (
-                        <button
-                          onClick={() => handleVerify(org.address)}
-                          disabled={txLoading === org.address}
-                          className="p-1.5 rounded-lg bg-green-100 text-green-700 hover:bg-green-200 hover:text-green-800 disabled:opacity-50 transition-all duration-200"
-                          title="Verify"
-                        >
-                          {txLoading === org.address ? (
-                            <span className="inline-block animate-spin">⟳</span>
-                          ) : (
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                            </svg>
-                          )}
-                        </button>
-                      )}
-                      {org.isVerified && (
-                        <button
-                          onClick={() => handleRevoke(org.address)}
-                          disabled={txLoading === org.address}
-                          className="p-1.5 rounded-lg bg-yellow-100 text-yellow-700 hover:bg-yellow-200 hover:text-yellow-800 disabled:opacity-50 transition-all duration-200"
-                          title="Revoke"
-                        >
-                          {txLoading === org.address ? (
-                            <span className="inline-block animate-spin">⟳</span>
-                          ) : (
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                            </svg>
-                          )}
-                        </button>
-                      )}
-                      <button
-                        onClick={() => handleRemove(org.address)}
-                        disabled={txLoading === org.address}
-                        className="p-1.5 rounded-lg bg-red-100 text-red-700 hover:bg-red-200 hover:text-red-800 disabled:opacity-50 transition-all duration-200"
-                        title="Remove"
-                      >
-                        {txLoading === org.address ? (
-                          <span className="inline-block animate-spin">⟳</span>
-                        ) : (
-                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                          </svg>
-                        )}
-                      </button>
-                      {txError && txLoading === org.address && (
-                        <div className="absolute mt-12 text-red-700 text-xs bg-red-100 p-2 rounded-lg border border-red-300">
-                          {txError}
+              <div className="overflow-x-auto">
+                <div className="grid grid-cols-12 gap-4 p-4 bg-[#e6e8ea] text-sm font-semibold text-[#111418]">
+                  <div className="col-span-3">Name</div>
+                  <div className="col-span-3">Email</div>
+                  <div className="col-span-3">Website</div>
+                  <div className="col-span-2">Status</div>
+                  <div className="col-span-1">Actions</div>
+                </div>
+                <div className="divide-y divide-[#f0f2f4]">
+                  {filteredOrgs.map((org) => (
+                    <div key={org.address} className="grid grid-cols-12 gap-4 p-4 hover:bg-[#f0f2f4] transition-colors duration-200 group relative">
+                      <div className="col-span-3">
+                        <div className={`font-medium ${TEXT_MAIN}`}>{org.name}</div>
+                        <div className="text-xs text-[#637488] font-mono flex items-center gap-1">
+                          <span
+                            className="cursor-pointer underline decoration-dotted"
+                            title={org.address}
+                          >
+                            {org.address.slice(0, 6)}...{org.address.slice(-4)}
+                          </span>
                         </div>
-                      )}
+                      </div>
+                      <div className="col-span-3 text-sm text-[#637488]">{org.email}</div>
+                      <div className="col-span-3 text-sm text-[#1978e5] hover:text-[#125bb5] transition-colors duration-200">
+                        <a href={org.website} target="_blank" rel="noopener noreferrer">
+                          {org.website}
+                        </a>
+                      </div>
+                      <div className="col-span-2">
+                        {org.isVerified ? (
+                          <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-800 border border-green-300">
+                            Verified
+                          </span>
+                        ) : (
+                          <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-yellow-100 text-yellow-800 border border-yellow-300">
+                            Pending
+                          </span>
+                        )}
+                      </div>
+                      <div className="col-span-1 flex items-center gap-3">
+                        {!org.isVerified && (
+                          <button
+                            onClick={() => handleVerify(org.address)}
+                            disabled={txLoading === org.address}
+                            className="p-2 rounded-lg bg-green-100 text-green-700 hover:bg-green-200 hover:text-green-800 disabled:opacity-50 transition-all duration-200"
+                            title="Verify Organization"
+                          >
+                            {txLoading === org.address ? (
+                              <span className="inline-block animate-spin">⟳</span>
+                            ) : (
+                              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                              </svg>
+                            )}
+                          </button>
+                        )}
+                        {org.isVerified && (
+                          <button
+                            onClick={() => handleRevoke(org.address)}
+                            disabled={txLoading === org.address}
+                            className="p-2 rounded-lg bg-yellow-100 text-yellow-700 hover:bg-yellow-200 hover:text-yellow-800 disabled:opacity-50 transition-all duration-200"
+                            title="Revoke Organization"
+                          >
+                            {txLoading === org.address ? (
+                              <span className="inline-block animate-spin">⟳</span>
+                            ) : (
+                              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                              </svg>
+                            )}
+                          </button>
+                        )}
+                        <button
+                          onClick={() => handleRemove(org.address)}
+                          disabled={txLoading === org.address}
+                          className="p-2 rounded-lg bg-red-100 text-red-700 hover:bg-red-200 hover:text-red-800 disabled:opacity-50 transition-all duration-200"
+                          title="Remove Organization"
+                        >
+                          {txLoading === org.address ? (
+                            <span className="inline-block animate-spin">⟳</span>
+                          ) : (
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                          )}
+                        </button>
+                        {txError && txLoading === org.address && (
+                          <div className="absolute mt-12 text-red-700 text-xs bg-red-100 p-2 rounded-lg border border-red-300">
+                            {txError}
+                          </div>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
           )}

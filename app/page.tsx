@@ -95,7 +95,7 @@ export default function Home() {
           </div>
           {/* Manage Credentials */}
           <div className="flex flex-col gap-3 pb-3">
-            <div className="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl" style={{backgroundImage: 'url(/images/manage-credentials.png)'}}></div>
+            <div className="w-full bg-center bg-no-repeat aspect-video bg-contain rounded-xl" style={{backgroundImage: 'url(/images/manage-credentials.png)'}}></div>
             <div>
               <p className="text-[#111418] text-base font-medium">Manage Credentials</p>
               <p className="text-[#637488] text-sm font-normal">Manage your soulbound credentials in one place.</p>
@@ -103,7 +103,7 @@ export default function Home() {
           </div>
           {/* Verify Credentials */}
           <div className="flex flex-col gap-3 pb-3">
-            <div className="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl" style={{backgroundImage: 'url(/images/verify-credentials.png)'}}></div>
+            <div className="w-full bg-center bg-no-repeat aspect-video bg-contain rounded-xl" style={{backgroundImage: 'url(/images/verify-credentials.png)'}}></div>
             <div>
               <p className="text-[#111418] text-base font-medium">Verify Credentials</p>
               <p className="text-[#637488] text-sm font-normal">Verify soulbound credentials with ease.</p>

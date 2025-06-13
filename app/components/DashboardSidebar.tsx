@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import Logo from './Logo';
 import { useWeb3 } from '../providers/Web3Provider';
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 
 const navItems = [
     {
@@ -61,6 +61,7 @@ export default function DashboardSidebar() {
     const { logout, walletConnected, userAuthenticated } = useWeb3();
     const router = useRouter();
     const [isLoggingOut, setIsLoggingOut] = useState(false);
+    const [showLogoutModal, setShowLogoutModal] = useState(false);
     const pathname = usePathname();
 
     const handleLogout = async () => {
@@ -74,16 +75,9 @@ export default function DashboardSidebar() {
             console.error("Logout failed:", error);
         } finally {
             setIsLoggingOut(false);
+            setShowLogoutModal(false);
         }
-    }
-
-    const handleAdminRoute = async () => {
-        const success = await logout();
-        if (success) {
-            router.replace('/admin');
-        }
-
-    }
+    };
 
     return (
         <aside className="fixed top-0 left-0 h-screen w-72 bg-white border-r border-[#f0f2f4] flex flex-col justify-between py-4 px-2 z-30">
@@ -110,27 +104,49 @@ export default function DashboardSidebar() {
                             </Link>
                         );
                     })}
-                    {/* Admin link, only for contract owner */}
-
-                    <button
-                        onClick={handleAdminRoute}
-                        className={`flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50 ${pathname === "/admin" ? "bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-gray-50" : ""
-                            }`}
-                    >
-                        <span className="text-[#1978e5]">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="#1978e5" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" /></svg>
-                        </span>
-                        <span className="text-[#1978e5] text-sm font-bold leading-normal">Admin</span>
-
-                    </button>
                 </nav>
             </div>
             <div className="px-4 mt-8">
-                <button onClick={handleLogout} disabled={!walletConnected || !userAuthenticated || isLoggingOut} className="flex items-center gap-3 px-3 py-2 text-[#111418] text-sm font-medium leading-normal rounded-xl hover:bg-[#f0f2f4] w-full">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256"><path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"></path></svg>
-                    <span>Logout</span>
+                <button
+                    onClick={() => setShowLogoutModal(true)}
+                    disabled={!walletConnected || !userAuthenticated || isLoggingOut}
+                    className="flex items-center gap-3 px-3 py-2 text-[#111418] text-sm font-medium leading-normal rounded-xl hover:bg-[#f0f2f4] w-full"
+                >
+                    {isLoggingOut ? (
+                        <svg className="animate-spin h-5 w-5 text-[#111418]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
+                        </svg>
+                    ) : (
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256"><path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"></path></svg>
+                    )}
+                    <span>{isLoggingOut ? 'Logging out...' : 'Logout'}</span>
                 </button>
             </div>
+            {showLogoutModal && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+                    <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-sm text-center">
+                        <h2 className="text-lg font-semibold text-[#111418] mb-4">Confirm Logout</h2>
+                        <p className="text-[#637488] mb-6">Are you sure you want to log out?</p>
+                        <div className="flex justify-center gap-4">
+                            <button
+                                onClick={() => setShowLogoutModal(false)}
+                                className="px-4 py-2 bg-[#f0f2f4] text-[#111418] rounded hover:bg-[#e5e7eb]"
+                                disabled={isLoggingOut}
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                onClick={handleLogout}
+                                className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
+                                disabled={isLoggingOut}
+                            >
+                                {isLoggingOut ? 'Logging out...' : 'Logout'}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </aside>
     );
 } 
