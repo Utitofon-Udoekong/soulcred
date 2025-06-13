@@ -29,17 +29,15 @@ export class IPFSService {
    * If spaceDid is provided, will set the existing space as current.
    */
   public async initialize({ email, spaceName, spaceDid }: { email?: string, spaceName?: string, spaceDid?: string } = {}): Promise<void> {
-    console.log('Initializing IPFS service with:', { email, spaceName, spaceDid });
-    
     if (!this.web3StorageClient) {
       this.web3StorageClient = await create();
     }
 
     // If a space DID is provided, just set it as current
-    if (spaceDid) {
-      await this.initializeWithExistingSpace(spaceDid);
-      return;
-    }
+    // if (spaceDid) {
+    //   await this.initializeWithExistingSpace(spaceDid);
+    //   return;
+    // }
 
     // If not logged in and email is provided, login
     if (!this.account && email) {

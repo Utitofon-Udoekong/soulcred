@@ -6,8 +6,8 @@ import { useState } from 'react';
 import Logo from './Logo';
 
 export default function Header() {
-  const { user, isLoading, authStatus } = useUser();
-  const { address: wagmiAddress, walletConnected } = useWeb3();
+  const { authStatus } = useUser();
+  const { walletConnected } = useWeb3();
   const userContext = useUser();
   const address = userHasWallet(userContext) ? userContext.ethereum.address : 'Provisioning...';
   const isConnected = authStatus === 'authenticated' && walletConnected;
@@ -16,9 +16,9 @@ export default function Header() {
   return (
     <header className="w-full border-b border-[#f0f2f4] bg-white sticky top-0 z-30">
       <div className="flex items-center justify-between px-4 md:px-10 py-3">
-        <div className="flex items-center gap-4 text-[#111418]">
+        <Link className="flex items-center gap-4 text-[#111418]" href="/">
           <Logo />
-        </div>
+        </Link>
         {/* Desktop Nav */}
         <nav className="hidden md:flex flex-1 justify-end gap-8 items-center">
           <div className="flex items-center gap-9">
