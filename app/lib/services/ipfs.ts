@@ -34,10 +34,10 @@ export class IPFSService {
     }
 
     // If a space DID is provided, just set it as current
-    // if (spaceDid) {
-    //   await this.initializeWithExistingSpace(spaceDid);
-    //   return;
-    // }
+    if (spaceDid) {
+      await this.initializeWithExistingSpace(spaceDid);
+      return;
+    }
 
     // If not logged in and email is provided, login
     if (!this.account && email) {

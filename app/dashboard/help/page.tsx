@@ -41,7 +41,7 @@ export default function HelpPage() {
           </div>
           <div>
             <h3 className="font-medium text-[#1978e5]">How do I register an organization?</h3>
-            <p className="text-[#637488]">Go to the <Link href="/dashboard/organizations" className="text-[#1978e5] underline">Organizations</Link> page and click "Register Organization". Fill in the required details and submit your request. An admin will review and approve your organization.</p>
+            <p className="text-[#637488]">Go to the <Link href="/dashboard/organizations" className="text-[#1978e5] underline">Organizations</Link> page and click &quot;Register Organization&quot;. Fill out your details and submit your request. An admin will review and approve your organization.</p>
           </div>
           <div>
             <h3 className="font-medium text-[#1978e5]">How do organizations verify credentials?</h3>

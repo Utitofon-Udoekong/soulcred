@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useVerificationRequests } from "@/app/hooks/useVerificationRequests";
 
 export default function DashboardPage() {

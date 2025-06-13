@@ -36,35 +36,6 @@ export default function RequestsPage() {
             : (r.status === "approved" || r.status === "rejected")
         );
 
-  const getStatusBadge = (status: string) => {
-    switch (status) {
-      case 'pending':
-        return (
-          <span className="px-2 py-1 text-xs font-semibold rounded-full bg-yellow-900 text-yellow-300">
-            Pending
-          </span>
-        );
-      case 'approved':
-        return (
-          <span className="px-2 py-1 text-xs font-semibold rounded-full bg-green-900 text-green-300">
-            Approved
-          </span>
-        );
-      case 'rejected':
-        return (
-          <span className="px-2 py-1 text-xs font-semibold rounded-full bg-red-900 text-red-300">
-            Rejected
-          </span>
-        );
-      default:
-        return (
-          <span className="px-2 py-1 text-xs font-semibold rounded-full bg-gray-700 text-gray-300">
-            {status}
-          </span>
-        );
-    }
-  };
-
   // Helper to shorten addresses
   const shortenAddress = (address: string) => {
     if (!address) return '';

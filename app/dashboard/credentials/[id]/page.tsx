@@ -4,11 +4,10 @@ import { useWeb3 } from '@/app/providers/Web3Provider';
 import { use, useEffect, useState } from 'react';
 import { ResumeMetadata, Organization } from '@/app/lib/types';
 import { ipfsService } from '@/app/lib/services/ipfs';
-import Link from 'next/link';
 import { parseError } from '@/app/lib/parseError';
-import { useOrganizations } from '@/app/hooks/useOrganizations';
+import Link from 'next/link';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { useOrganizations } from '@/app/hooks/useOrganizations';
 
 // Modal component for attachments
 function AttachmentModal({ isOpen, onClose, attachment }: { isOpen: boolean; onClose: () => void; attachment: string }) {
@@ -335,7 +334,6 @@ export default function ResumeViewPage({ params }: { params: Promise<{ id: strin
   const [showVerificationModal, setShowVerificationModal] = useState(false);
   const [selectedEntryId, setSelectedEntryId] = useState<string | null>(null);
   const [verificationLoading, setVerificationLoading] = useState(false);
-  const router = useRouter();
 
   // Use the new hook for organizations
   const { data: organizations = []} = useOrganizations();
@@ -457,10 +455,6 @@ export default function ResumeViewPage({ params }: { params: Promise<{ id: strin
         )}
       </button>
     );
-  };
-
-  const handleCancel = () => {
-    router.push(`/dashboard/credentials/${id}`);
   };
 
   if (loading) {
