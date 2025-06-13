@@ -57,6 +57,7 @@ export class IPFSService {
     if (!this.web3StorageClient) {
       this.web3StorageClient = await create();
     }
+    console.log('Logging in with email:', email);
     try {
       this.account = await this.web3StorageClient.login(email as `${string}@${string}`);
       // Wait for payment plan selection (poll every 1s, timeout 15min)
@@ -93,6 +94,7 @@ export class IPFSService {
       this.web3StorageClient = await create();
     }
     try {
+      console.log('Setting current space to:', spaceDid);
       await this.web3StorageClient.setCurrentSpace(spaceDid as `did:${string}:${string}`);
       this.spaceProvisioned = true;
     } catch (error) {
