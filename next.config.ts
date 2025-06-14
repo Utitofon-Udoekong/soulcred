@@ -5,19 +5,16 @@ const nextConfig: NextConfig = {
   env: {
     contractOwnerAddress: process.env.CONTRACT_OWNER_ADDRESS,
     sepoliaAlchemyApiKey: process.env.SEPOLIA_ALCHEMY_API_KEY,
-    ipfsStorageKey: process.env.IPFS_STORAGE_KEY,
-    ipfsStorageEmail: process.env.IPFS_STORAGE_EMAIL,
-    ipfsStorageSpaceName: process.env.IPFS_STORAGE_SPACE_NAME,
+    PINATA_JWT: process.env.PINATA_JWT,
+    PINATA_API_SECRET: process.env.PINATA_API_SECRET,
+    PINATA_API_KEY: process.env.PINATA_API_KEY,
+    NEXT_PUBLIC_GATEWAY_URL: process.env.NEXT_PUBLIC_GATEWAY_URL  
   },
   images: {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: '*.ipfs.w3s.link',
-      },
-      {
-        protocol: 'https',
-        hostname: 'storyset.com',
+        hostname: '*.mypinata.cloud',
       },
     ],
   }

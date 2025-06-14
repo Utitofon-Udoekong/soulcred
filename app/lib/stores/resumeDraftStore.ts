@@ -298,8 +298,26 @@ export const useResumeDraftStore = create<ResumeDraftsState>()(
                   u8arr[n] = bstr.charCodeAt(n);
                 }
                 const file = new File([u8arr], att.name, { type: mime });
-                const url = await import('../services/ipfs').then(m => m.ipfsService.uploadFile(file));
-                ipfsUrls.push(url);
+                
+                // Use server-side upload
+                const formData = new FormData();
+                formData.append('file', file);
+                const response = await fetch('/api/files', {
+                  method: 'POST',
+                  body: formData
+                });
+                
+                if (!response.ok) {
+                  const error = await response.json();
+                  throw new Error(`Failed to upload file: ${error.details || error.error}`);
+                }
+                
+                const result = await response.json();
+                if (result.success) {
+                  ipfsUrls.push(result.ipfsUri);
+                } else {
+                  throw new Error(`Failed to upload file: ${result.error}`);
+                }
               }
             }
             return { ...entry, attachments: ipfsUrls } as ResumeEntry;
@@ -314,7 +332,7 @@ export const useResumeDraftStore = create<ResumeDraftsState>()(
           name: draft.name,
           version: draft.version,
           profile: draft.profile,
-          entries: processedEntries, // Use the processed entries
+          entries: processedEntries,
           chainId: draft.chainId,
           createdAt: draft.createdAt,
           updatedAt: draft.updatedAt,

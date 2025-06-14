@@ -7,11 +7,11 @@ import { useWeb3 } from '@/app/providers/Web3Provider';
 import { EntryType, EntryTypeEnum, ProfileMetadata } from '@/app/lib/types';
 import FileUploader from '@/app/components/ui/FileUploader';
 import { useFormAutoSave } from '@/app/hooks/useAutoSave';
-import { IPFSService } from '@/app/lib/services/ipfs';
+import { PinataService } from '@/app/lib/services/pinata';
 import Link from 'next/link';
 
 // Get IPFS service singleton
-const ipfsService = IPFSService.getInstance();
+const pinataService = PinataService.getInstance();
 
 // Helper function to convert EntryTypeEnum to string
 const entryTypeToString = (type: EntryTypeEnum): EntryType => {
@@ -625,7 +625,7 @@ function CreateResumeFormContent() {
 
           // Upload the metadata to IPFS
           setUploadProgress(50);
-          const ipfsUri = await ipfsService.uploadResumeMetadata(resumeMetadata);
+          const ipfsUri = await pinataService.uploadResumeMetadata(resumeMetadata);
                     
           // Start minting process
           setIsUploadingAttachments(false);

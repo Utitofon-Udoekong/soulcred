@@ -3,14 +3,14 @@
 import { useState, useEffect, use } from "react";
 import { useWeb3 } from '@/app/providers/Web3Provider';
 import { ResumeMetadata } from '@/app/lib/types';
-import { ipfsService } from '@/app/lib/services/ipfs';
+import { pinataService } from '@/app/lib/services/pinata';
 import Image from 'next/image';
 import Link from 'next/link';
 import Header from '@/app/components/Header';
 
 // Modal component for attachments
 function AttachmentModal({ isOpen, onClose, attachment }: { isOpen: boolean; onClose: () => void; attachment: string }) {
-  const gatewayUrl = ipfsService.getHttpUrl(attachment);
+  const gatewayUrl = pinataService.getHttpUrl(attachment);
   const [contentType, setContentType] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 

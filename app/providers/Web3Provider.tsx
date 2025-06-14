@@ -15,7 +15,7 @@ import {
   VerificationManager__factory,
 } from '@/app/lib/contracts/contract-types';
 import { contractAddresses } from '@/app/lib/contracts/addresses';
-import { ipfsService } from '@/app/lib/services/ipfs';
+import { pinataService } from '@/app/lib/services/pinata';
 import { readContract, simulateContract, writeContract, waitForTransactionReceipt } from '@wagmi/core'
 import { parseError } from '@/app/lib/parseError';
 import type { VerificationRequest, VerificationRequestStatus, Organization } from '@/app/lib/types';
@@ -107,20 +107,16 @@ function Web3ProviderInner({ children }: { children: React.ReactNode }) {
     return userContext.user ? 'authenticated' : 'unauthenticated';
   }, [userContext.isLoading, userContext.user]);
 
-  // Initialize IPFS service on first load
+  // Initialize Pinata service on first load
   useEffect(() => {
-    const initIPFS = async () => {
+    const initPinata = async () => {
       try {
-        await ipfsService.initialize({
-          email: process.env.ipfsStorageEmail,
-          spaceName: process.env.ipfsStorageSpaceName,
-          spaceDid: process.env.ipfsStorageKey,
-        });
+        await pinataService.initialize();
       } catch (error) {
-        console.error('Failed to initialize IPFS service:', error);
+        console.error('Failed to initialize Pinata service:', error);
       }
     };
-    initIPFS();
+    initPinata();
   }, []);
 
   // Contract interaction hooks
@@ -203,7 +199,7 @@ function Web3ProviderInner({ children }: { children: React.ReactNode }) {
         
         if (!tokenURI) continue;
 
-        const metadata = await ipfsService.getResumeMetadata(tokenURI);
+        const metadata = await pinataService.getResumeMetadata(tokenURI);
         if (metadata) {
           metadata.tokenId = tokenId.toString();
           resumes.push(metadata);
@@ -329,7 +325,27 @@ function Web3ProviderInner({ children }: { children: React.ReactNode }) {
 
     try {
       setIsLoading(true);
-            const metadataUri = await ipfsService.uploadResumeMetadata(resumeData);
+
+      // Upload metadata using server-side API
+      const response = await fetch('/api/metadata', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(resumeData),
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(`Failed to upload metadata: ${error.details || error.error}`);
+      }
+
+      const responseData = await response.json();
+      if (!responseData.success) {
+        throw new Error(`Failed to upload metadata: ${responseData.error}`);
+      }
+
+      const metadataUri = responseData.ipfsUri as string;
 
       const { request } = await simulateContract(wagmiConfig, {
         abi: ResumeNFT__factory.abi,
@@ -364,7 +380,7 @@ function Web3ProviderInner({ children }: { children: React.ReactNode }) {
         args: [BigInt(resumeId)],
         chainId: sepolia.id,
       });
-      const metadata = await ipfsService.getResumeMetadata(tokenURI);
+      const metadata = await pinataService.getResumeMetadata(tokenURI);
       if (metadata) {
         metadata.tokenId = resumeId;
         return metadata;

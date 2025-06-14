@@ -27,7 +27,7 @@ export default function HelpPage() {
           </div>
           <div>
             <h3 className="font-medium text-[#1978e5]">Where is my data stored?</h3>
-            <p className="text-[#637488]">Your resume data is stored on IPFS via Web3.Storage, and credentials are minted as soulbound NFTs on-chain.</p>
+            <p className="text-[#637488]">Your resume data is stored on IPFS via Pinata, and credentials are minted as soulbound NFTs on-chain.</p>
           </div>
         </div>
       </div>
