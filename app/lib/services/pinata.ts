@@ -1,5 +1,7 @@
 import { PinataSDK } from "pinata";
 import { ResumeMetadata } from '../types';
+import { v4 as uuidv4 } from 'uuid';
+import imageCompression from 'browser-image-compression';
 
 /**
  * Service for interacting with IPFS via Pinata
@@ -35,14 +37,43 @@ export class PinataService {
   }
 
   /**
+   * Compress a file before uploading
+   * @param file - The file to compress
+   * @returns The compressed file
+   */
+  private async compressFile(file: File): Promise<File> {
+    // If it's an image, use browser-image-compression
+    if (file.type.startsWith('image/')) {
+      const options = {
+        maxSizeMB: 1,
+        maxWidthOrHeight: 1920,
+        useWebWorker: true
+      };
+      const compressedFile = await imageCompression(file, options);
+      return new File([compressedFile], file.name, { type: file.type });
+    }
+    
+    return file;
+  }
+
+  /**
    * Upload a file to IPFS using Pinata
    * @param file - The file to upload
    * @returns The IPFS URI for the uploaded file
    */
   public async uploadFile(file: File): Promise<string> {
     if (!this.pinata) throw new Error('Pinata client not initialized');
-    const { cid } = await this.pinata.upload.public.file(file);
-    return `ipfs://${cid}`;
+    
+    // Compress the file first
+    const compressedFile = await this.compressFile(file);
+    
+    // Create a unique filename using UUID and original filename
+    const extension = file.name.split('.').pop() || '';
+    const filename = `${uuidv4()}_${Date.now()}.${extension}`;
+    const newFile = new File([compressedFile], filename, { type: file.type });
+    
+    const { cid } = await this.pinata.upload.public.file(newFile);
+    return await this.pinata.gateways.public.convert(cid);
   }
 
   /**
@@ -53,9 +84,11 @@ export class PinataService {
   public async uploadResumeMetadata(metadata: ResumeMetadata): Promise<string> {
     if (!this.pinata) throw new Error('Pinata client not initialized');
     const blob = new Blob([JSON.stringify(metadata)], { type: 'application/json' });
-    const file = new File([blob], 'resume.json', { type: 'application/json' });
+    // Create a unique filename using UUID and timestamp
+    const filename = `resume_${uuidv4()}_${Date.now()}.json`;
+    const file = new File([blob], filename, { type: 'application/json' });
     const { cid } = await this.pinata.upload.public.file(file);
-    return `ipfs://${cid}`;
+    return await this.pinata.gateways.public.convert(cid);
   }
 
   /**

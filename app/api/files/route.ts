@@ -20,7 +20,7 @@ export async function POST(request: NextRequest) {
     // Upload file to IPFS
     const ipfsUri = await pinataService.uploadFile(file);
     const url = pinataService.getHttpUrl(ipfsUri);
-
+    console.log('url', url);
     return NextResponse.json({ 
       url,
       ipfsUri,
